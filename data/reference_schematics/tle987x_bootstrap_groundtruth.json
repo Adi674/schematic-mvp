@@ -1,0 +1,700 @@
+{
+    "ground_truth_version": "1.0",
+    "source": {
+        "document": "TLE987x/6x Hardware Design Guideline",
+        "section": "1.3 Application information",
+        "figure": "BLDC system application schematic",
+        "source_type": "provided_schematic_image"
+    },
+    "scope": {
+        "purpose": "Benchmark for schematic component extraction",
+        "rule": "Only components and functional blocks visibly supported by the schematic are included.",
+        "values": "Not included because component values are not reliably readable from the supplied image."
+    },
+    "components": [
+        {
+            "ref": "L_FFLT",
+            "type": "inductor",
+            "category": "passive",
+            "section": "EMC filter",
+            "function": "VBAT input filtering",
+            "confidence": 0.99
+        },
+        {
+            "ref": "C_FFLT1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "EMC filter",
+            "function": "EMC filtering to ground",
+            "confidence": 0.98
+        },
+        {
+            "ref": "C_FFLT2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "EMC filter",
+            "function": "EMC filtering to ground",
+            "confidence": 0.98
+        },
+        {
+            "ref": "D_VS",
+            "type": "diode",
+            "category": "protection",
+            "section": "VS supply",
+            "function": "Supply/input protection",
+            "confidence": 0.98
+        },
+        {
+            "ref": "C_VS1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VS supply",
+            "function": "VS decoupling",
+            "confidence": 0.96
+        },
+        {
+            "ref": "C_VS2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VS supply",
+            "function": "VS decoupling",
+            "confidence": 0.96
+        },
+        {
+            "ref": "C_VDDP1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDP supply",
+            "function": "VDDP decoupling",
+            "confidence": 0.95
+        },
+        {
+            "ref": "C_VDDP2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDP supply",
+            "function": "VDDP decoupling",
+            "confidence": 0.95
+        },
+        {
+            "ref": "C_VDDC1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDC supply",
+            "function": "VDDC decoupling",
+            "confidence": 0.95
+        },
+        {
+            "ref": "C_VDDC2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDC supply",
+            "function": "VDDC decoupling",
+            "confidence": 0.95
+        },
+        {
+            "ref": "R_MON",
+            "type": "resistor",
+            "category": "passive",
+            "section": "MON interface",
+            "function": "MON signal conditioning",
+            "confidence": 0.97
+        },
+        {
+            "ref": "C_MON",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "MON interface",
+            "function": "MON filtering",
+            "confidence": 0.97
+        },
+        {
+            "ref": "C_LIN",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "LIN interface",
+            "function": "LIN filtering",
+            "confidence": 0.97
+        },
+        {
+            "ref": "C_VAREF",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VAREF",
+            "function": "VAREF filtering",
+            "confidence": 0.80,
+            "label_status": "partially_readable"
+        },
+        {
+            "ref": "C_CP1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "charge pump",
+            "function": "CP1 charge-pump capacitor",
+            "confidence": 0.90
+        },
+        {
+            "ref": "C_CP2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "charge pump",
+            "function": "CP2 charge-pump capacitor",
+            "confidence": 0.90
+        },
+        {
+            "ref": "C_VCP",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "charge pump",
+            "function": "VCP supply/charge-pump capacitor",
+            "confidence": 0.85,
+            "label_status": "partially_readable"
+        },
+        {
+            "ref": "R_VSD",
+            "type": "resistor",
+            "category": "passive",
+            "section": "VSD",
+            "function": "VSD network",
+            "confidence": 0.85
+        },
+        {
+            "ref": "C_VSD",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VSD",
+            "function": "VSD filtering",
+            "confidence": 0.85
+        },
+        {
+            "ref": "R_VDH",
+            "type": "resistor",
+            "category": "passive",
+            "section": "VDH",
+            "function": "VDH network",
+            "confidence": 0.85
+        },
+        {
+            "ref": "C_VDH",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDH",
+            "function": "VDH filtering",
+            "confidence": 0.85
+        },
+        {
+            "ref": "TH1",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "high_side_gate_driver",
+            "function": "Phase U high-side switch",
+            "gate_net": "GH1",
+            "output_net": "U",
+            "confidence": 0.94
+        },
+        {
+            "ref": "TH2",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "high_side_gate_driver",
+            "function": "Phase V high-side switch",
+            "gate_net": "GH2",
+            "output_net": "V",
+            "confidence": 0.94
+        },
+        {
+            "ref": "TH3",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "high_side_gate_driver",
+            "function": "Phase W high-side switch",
+            "gate_net": "GH3",
+            "output_net": "W",
+            "confidence": 0.94
+        },
+        {
+            "ref": "TL1",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "low_side_gate_driver",
+            "function": "Phase U low-side switch",
+            "gate_net": "GL1",
+            "output_net": "U",
+            "confidence": 0.94
+        },
+        {
+            "ref": "TL2",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "low_side_gate_driver",
+            "function": "Phase V low-side switch",
+            "gate_net": "GL2",
+            "output_net": "V",
+            "confidence": 0.94
+        },
+        {
+            "ref": "TL3",
+            "type": "n_channel_mosfet",
+            "category": "power_device",
+            "section": "low_side_gate_driver",
+            "function": "Phase W low-side switch",
+            "gate_net": "GL3",
+            "output_net": "W",
+            "confidence": 0.94
+        },
+        {
+            "ref": "Hall1",
+            "type": "hall_sensor",
+            "category": "sensor",
+            "section": "Hall sensor interface",
+            "part_number": "TLE4946-2K",
+            "output_net": "P0.3",
+            "confidence": 0.98
+        },
+        {
+            "ref": "Hall2",
+            "type": "hall_sensor",
+            "category": "sensor",
+            "section": "Hall sensor interface",
+            "part_number": "TLE4946-2K",
+            "output_net": "P1.4",
+            "confidence": 0.98
+        },
+        {
+            "ref": "Hall3",
+            "type": "hall_sensor",
+            "category": "sensor",
+            "section": "Hall sensor interface",
+            "part_number": "TLE4946-2K",
+            "output_net": "P0.2",
+            "confidence": 0.98
+        },
+        {
+            "ref": "Hall1_support",
+            "type": "passive_network",
+            "category": "support_circuit",
+            "section": "Hall sensor interface",
+            "function": "Hall sensor bias/filtering",
+            "confidence": 0.90
+        },
+        {
+            "ref": "Hall2_support",
+            "type": "passive_network",
+            "category": "support_circuit",
+            "section": "Hall sensor interface",
+            "function": "Hall sensor bias/filtering",
+            "confidence": 0.90
+        },
+        {
+            "ref": "Hall3_support",
+            "type": "passive_network",
+            "category": "support_circuit",
+            "section": "Hall sensor interface",
+            "function": "Hall sensor bias/filtering",
+            "confidence": 0.90
+        },
+        {
+            "ref": "C_VDDEXT1",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDEXT",
+            "function": "VDDEXT decoupling",
+            "confidence": 0.90
+        },
+        {
+            "ref": "C_VDDEXT2",
+            "type": "capacitor",
+            "category": "passive",
+            "section": "VDDEXT",
+            "function": "VDDEXT decoupling",
+            "confidence": 0.90
+        },
+        {
+            "ref": "TemperatureSensor",
+            "type": "temperature_sensor",
+            "category": "sensor",
+            "section": "temperature sensing",
+            "output_net": "P2.2",
+            "part_number": null,
+            "confidence": 0.99
+        },
+        {
+            "ref": "M",
+            "type": "bldc_motor",
+            "category": "motor",
+            "section": "motor",
+            "phase_nets": [
+                "U",
+                "V",
+                "W"
+            ],
+            "confidence": 0.99
+        },
+        {
+            "ref": "TLE987x",
+            "type": "integrated_circuit",
+            "category": "motor_controller",
+            "section": "main_controller",
+            "function": "BLDC motor controller",
+            "confidence": 0.99
+        }
+    ],
+    "functional_blocks": [
+        {
+            "ref": "EMC_FILTER",
+            "type": "functional_block",
+            "name": "EMC filter",
+            "contains": [
+                "L_FFLT",
+                "C_FFLT1",
+                "C_FFLT2"
+            ],
+            "confidence": 0.99
+        },
+        {
+            "ref": "REV_POLARITY_PROTECTION",
+            "type": "functional_block",
+            "name": "Rev. polarity protection",
+            "internal_components_extracted": false,
+            "confidence": 0.99
+        },
+        {
+            "ref": "DEBUG_CONNECTOR",
+            "type": "functional_block",
+            "name": "Debug connector",
+            "connections": [
+                "TMS",
+                "P0.0"
+            ],
+            "confidence": 0.98
+        },
+        {
+            "ref": "TEMPERATURE_SENSOR_BLOCK",
+            "type": "functional_block",
+            "name": "Temperature sensor",
+            "connections": [
+                "P2.2"
+            ],
+            "confidence": 0.99
+        }
+    ],
+    "nets": [
+        {
+            "name": "VBAT",
+            "connections": [
+                "L_FFLT"
+            ]
+        },
+        {
+            "name": "VS",
+            "connections": [
+                "D_VS",
+                "C_VS1",
+                "C_VS2",
+                "TLE987x.VS"
+            ]
+        },
+        {
+            "name": "VDDP",
+            "connections": [
+                "TLE987x.VDDP",
+                "C_VDDP1",
+                "C_VDDP2"
+            ]
+        },
+        {
+            "name": "VDDC",
+            "connections": [
+                "TLE987x.VDDC",
+                "C_VDDC1",
+                "C_VDDC2"
+            ]
+        },
+        {
+            "name": "VDDEXT",
+            "connections": [
+                "TLE987x.VDDEXT",
+                "C_VDDEXT1",
+                "C_VDDEXT2"
+            ]
+        },
+        {
+            "name": "IGN",
+            "connections": [
+                "R_MON"
+            ]
+        },
+        {
+            "name": "MON",
+            "connections": [
+                "TLE987x.MON",
+                "R_MON",
+                "C_MON"
+            ]
+        },
+        {
+            "name": "LIN",
+            "connections": [
+                "TLE987x.LIN",
+                "C_LIN"
+            ]
+        },
+        {
+            "name": "VAREF",
+            "connections": [
+                "TLE987x.VAREF",
+                "C_VAREF"
+            ]
+        },
+        {
+            "name": "CP1H",
+            "connections": [
+                "TLE987x.CP1H",
+                "C_CP1"
+            ]
+        },
+        {
+            "name": "CP1L",
+            "connections": [
+                "TLE987x.CP1L",
+                "C_CP1"
+            ]
+        },
+        {
+            "name": "CP2H",
+            "connections": [
+                "TLE987x.CP2H",
+                "C_CP2"
+            ]
+        },
+        {
+            "name": "CP2L",
+            "connections": [
+                "TLE987x.CP2L",
+                "C_CP2"
+            ]
+        },
+        {
+            "name": "GH1",
+            "connections": [
+                "TLE987x.GH1",
+                "TH1"
+            ]
+        },
+        {
+            "name": "GH2",
+            "connections": [
+                "TLE987x.GH2",
+                "TH2"
+            ]
+        },
+        {
+            "name": "GH3",
+            "connections": [
+                "TLE987x.GH3",
+                "TH3"
+            ]
+        },
+        {
+            "name": "GL1",
+            "connections": [
+                "TLE987x.GL1",
+                "TL1"
+            ]
+        },
+        {
+            "name": "GL2",
+            "connections": [
+                "TLE987x.GL2",
+                "TL2"
+            ]
+        },
+        {
+            "name": "GL3",
+            "connections": [
+                "TLE987x.GL3",
+                "TL3"
+            ]
+        },
+        {
+            "name": "SH1",
+            "connections": [
+                "TLE987x.SH1",
+                "TH1",
+                "TL1"
+            ]
+        },
+        {
+            "name": "SH2",
+            "connections": [
+                "TLE987x.SH2",
+                "TH2",
+                "TL2"
+            ]
+        },
+        {
+            "name": "SH3",
+            "connections": [
+                "TLE987x.SH3",
+                "TH3",
+                "TL3"
+            ]
+        },
+        {
+            "name": "U",
+            "connections": [
+                "TH1",
+                "TL1",
+                "M"
+            ]
+        },
+        {
+            "name": "V",
+            "connections": [
+                "TH2",
+                "TL2",
+                "M"
+            ]
+        },
+        {
+            "name": "W",
+            "connections": [
+                "TH3",
+                "TL3",
+                "M"
+            ]
+        },
+        {
+            "name": "P0.3",
+            "connections": [
+                "TLE987x.P0.3",
+                "Hall1"
+            ]
+        },
+        {
+            "name": "P1.4",
+            "connections": [
+                "TLE987x.P1.4",
+                "Hall2"
+            ]
+        },
+        {
+            "name": "P0.2",
+            "connections": [
+                "TLE987x.P0.2",
+                "Hall3"
+            ]
+        },
+        {
+            "name": "P2.2",
+            "connections": [
+                "TLE987x.P2.2",
+                "TemperatureSensor"
+            ]
+        },
+        {
+            "name": "TMS",
+            "connections": [
+                "TLE987x.TMS",
+                "DEBUG_CONNECTOR"
+            ]
+        },
+        {
+            "name": "P0.0",
+            "connections": [
+                "TLE987x.P0.0",
+                "DEBUG_CONNECTOR"
+            ]
+        },
+        {
+            "name": "GND",
+            "connections": [
+                "C_FFLT1",
+                "C_FFLT2",
+                "C_VS1",
+                "C_VS2",
+                "C_VDDP1",
+                "C_VDDP2",
+                "C_VDDC1",
+                "C_VDDC2",
+                "C_MON",
+                "C_LIN",
+                "C_VAREF",
+                "C_VDDEXT1",
+                "C_VDDEXT2"
+            ]
+        }
+    ],
+    "expected_false_positives": [
+        {
+            "ref": "R_VS",
+            "type": "resistor",
+            "reason": "No resistor is visibly present in the VS decoupling network."
+        },
+        {
+            "ref": "R_VDDP",
+            "type": "resistor",
+            "reason": "No resistor is visibly present in the VDDP decoupling network."
+        },
+        {
+            "ref": "R_VDDC",
+            "type": "resistor",
+            "reason": "No resistor is visibly present in the VDDC decoupling network."
+        },
+        {
+            "ref": "R_VDDEXT",
+            "type": "resistor",
+            "reason": "No resistor is visibly present in the VDDEXT decoupling network."
+        },
+        {
+            "ref": "R_LIN",
+            "type": "resistor",
+            "reason": "No resistor is visibly present in the LIN filtering network."
+        },
+        {
+            "ref": "R_CP1H",
+            "type": "resistor",
+            "reason": "No such resistor is visibly present in the charge-pump section."
+        },
+        {
+            "ref": "R_CP1L",
+            "type": "resistor",
+            "reason": "No such resistor is visibly present in the charge-pump section."
+        },
+        {
+            "ref": "R_CP2H",
+            "type": "resistor",
+            "reason": "No such resistor is visibly present in the charge-pump section."
+        },
+        {
+            "ref": "R_CP2L",
+            "type": "resistor",
+            "reason": "No such resistor is visibly present in the charge-pump section."
+        },
+        {
+            "ref": "D_Hall1",
+            "type": "diode",
+            "reason": "The visible device is a TLE4946-2K Hall sensor, not a diode."
+        },
+        {
+            "ref": "D_Hall2",
+            "type": "diode",
+            "reason": "The visible device is a TLE4946-2K Hall sensor, not a diode."
+        },
+        {
+            "ref": "D_Hall3",
+            "type": "diode",
+            "reason": "The visible device is a TLE4946-2K Hall sensor, not a diode."
+        },
+        {
+            "ref": "R_Pol",
+            "type": "resistor",
+            "reason": "Reverse-polarity protection is represented as a functional block; internal components are not individually visible."
+        },
+        {
+            "ref": "D_Pol",
+            "type": "diode",
+            "reason": "Reverse-polarity protection is represented as a functional block; internal components are not individually visible."
+        }
+    ]
+}

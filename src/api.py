@@ -3,6 +3,7 @@ FastAPI application for Phase 3 — Simple RAG Chat service.
 Connects HybridRetriever (Chroma + BM25) to Mistral Small.
 """
 
+from src.schematic.crop_handler import handle_crop_message
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -17,6 +18,7 @@ from src.schematic.schema import (
     ReviewCropResponse
 )
 from src.schematic.semantic_schema import SemanticCropResponse
+from src.schematic.explain_schema import ExplainCropResponse
 from fastapi import File, UploadFile, Form
 
 app = FastAPI(title="Schematic RAG Chat & Review API", version="1.0.0")
@@ -203,3 +205,51 @@ def review_schematic_crop(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Schematic review error: {str(e)}")
 
+
+@app.post("/schematic/explain/crop/{review_id}", response_model=ExplainCropResponse)
+def explain_schematic_crop(review_id: str):
+    """
+    Scenario A (WS4): explains every resolved component in a previously
+    parsed crop, grounded against the HDG via net resolution + hybrid retrieval.
+    """
+    try:
+        return schematic_service.explain_crop(review_id=review_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Review session '{review_id}' not found.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Schematic explain error: {str(e)}")
+
+@app.post("/schematic/crop")
+async def crop_chat(
+    image: UploadFile = File(...),
+    message: str = Form(...),
+    device_hint: Optional[str] = Form(None),
+):
+    """
+    Single-call chat entry point: image + free-text message in, routed result
+    out. No separate parse-then-explain/review round trip needed by the caller.
+    Response shape depends on "intent": "explain" -> ExplainCropResponse under
+    "result", "missing" -> MissingCropResponse under "result".
+    """
+    if not image.content_type or not image.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File uploaded must be an image.")
+ 
+    try:
+        contents = await image.read()
+ 
+        from PIL import Image
+        import io
+ 
+        img = Image.open(io.BytesIO(contents))
+ 
+        return handle_crop_message(
+            image_bytes=contents,
+            message=message,
+            filename=image.filename or "crop.png",
+            width=img.width,
+            height=img.height,
+            device_hint=device_hint,
+            mime_type=image.content_type or "image/png",
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Schematic crop-chat error: {exc}")

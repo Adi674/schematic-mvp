@@ -1,0 +1,2107 @@
+{
+  "schema_version": "1.0",
+  "device": "TLE987x-2QX",
+  "hdg_version": "1.1",
+  "source_figure": "fig_3_application_schemati.png",
+  "generated_at": "2026-08-21T07:38:54.354460+00:00",
+  "components": [
+    {
+      "label": "L_VS",
+      "type": "inductor",
+      "function": "EMC filter series choke",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_VS1",
+        "C_VS2",
+        "VBAT"
+      ],
+      "evidence": {
+        "bbox": [
+          100.0,
+          100.0,
+          140.0,
+          140.0
+        ],
+        "model_confidence": 0.95
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VS1",
+      "type": "capacitor",
+      "function": "EMC filter decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at VS pin (TLE987x supply)",
+      "hdg_component_typical": ">= 100 nF",
+      "hdg_symbol_raw": "C\nVS1",
+      "hdg_matched": true,
+      "nodes": [
+        "L_VS",
+        "VS"
+      ],
+      "evidence": {
+        "bbox": [
+          100.0,
+          150.0,
+          120.0,
+          170.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VS2",
+      "type": "capacitor",
+      "function": "EMC filter decoupling",
+      "value": null,
+      "hdg_function": "Bulk capacitor at VS pin (TLE987x supply)",
+      "hdg_component_typical": "> 2.2 μF",
+      "hdg_symbol_raw": "C\nVS2",
+      "hdg_matched": true,
+      "nodes": [
+        "L_VS",
+        "VS"
+      ],
+      "evidence": {
+        "bbox": [
+          130.0,
+          150.0,
+          150.0,
+          170.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "D_VS",
+      "type": "diode",
+      "function": "Reverse polarity protection",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "VDDP",
+        "VS"
+      ],
+      "evidence": {
+        "bbox": [
+          200.0,
+          120.0,
+          220.0,
+          140.0
+        ],
+        "model_confidence": 0.95
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_OVS",
+      "type": "capacitor",
+      "function": "Overvoltage protection decoupling",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "VDDP"
+      ],
+      "evidence": {
+        "bbox": [
+          250.0,
+          120.0,
+          270.0,
+          140.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_MON",
+      "type": "capacitor",
+      "function": "Monitor pin decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at MON pin (high-voltage monitor input)",
+      "hdg_component_typical": "10 nF",
+      "hdg_symbol_raw": "C\nMON",
+      "hdg_matched": true,
+      "nodes": [
+        "GND",
+        "R_MON"
+      ],
+      "evidence": {
+        "bbox": [
+          300.0,
+          180.0,
+          320.0,
+          200.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "R_MON",
+      "type": "resistor",
+      "function": "Monitor pin series resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_MON",
+        "TLE9872-2QTW40.MON"
+      ],
+      "evidence": {
+        "bbox": [
+          300.0,
+          160.0,
+          320.0,
+          180.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_LIN",
+      "type": "capacitor",
+      "function": "LIN bus decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at LIN pin",
+      "hdg_component_typical": "220 pF",
+      "hdg_symbol_raw": "C\nLIN",
+      "hdg_matched": true,
+      "nodes": [
+        "LIN",
+        "TLE9872-2QTW40.LIN"
+      ],
+      "evidence": {
+        "bbox": [
+          250.0,
+          250.0,
+          270.0,
+          270.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_VAREF",
+      "type": "capacitor",
+      "function": "Voltage reference decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at VAREF pin (analog reference)",
+      "hdg_component_typical": "100 nF",
+      "hdg_symbol_raw": "C\nVAREF",
+      "hdg_matched": true,
+      "nodes": [
+        "GND_REF",
+        "TLE9872-2QTW40.VAREF"
+      ],
+      "evidence": {
+        "bbox": [
+          300.0,
+          250.0,
+          320.0,
+          270.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_VDDEXT",
+      "type": "capacitor",
+      "function": "External voltage regulator decoupling",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GND",
+        "TLE9872-2QTW40.VDDEXT"
+      ],
+      "evidence": {
+        "bbox": [
+          300.0,
+          300.0,
+          320.0,
+          320.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VDD",
+      "type": "capacitor",
+      "function": "Core voltage decoupling",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "VDDC"
+      ],
+      "evidence": {
+        "bbox": [
+          350.0,
+          350.0,
+          370.0,
+          370.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_VDD",
+      "type": "resistor",
+      "function": "Core voltage series resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "TLE9872-2QTW40.VDD",
+        "VDDC"
+      ],
+      "evidence": {
+        "bbox": [
+          350.0,
+          330.0,
+          370.0,
+          350.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VSD",
+      "type": "capacitor",
+      "function": "Voltage sense decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at VSD pin (charge pump supply)",
+      "hdg_component_typical": "1 μF",
+      "hdg_symbol_raw": "C\nVSD",
+      "hdg_matched": true,
+      "nodes": [
+        "GND",
+        "R_VSD"
+      ],
+      "evidence": {
+        "bbox": [
+          500.0,
+          400.0,
+          520.0,
+          420.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_VSD",
+      "type": "resistor",
+      "function": "Voltage sense series resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_VSD",
+        "TLE9872-2QTW40.VSD"
+      ],
+      "evidence": {
+        "bbox": [
+          500.0,
+          380.0,
+          520.0,
+          400.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VDH",
+      "type": "capacitor",
+      "function": "High-side driver decoupling",
+      "value": null,
+      "hdg_function": "Filter capacitor at VDH pin (drain high-side MOSFET driver)",
+      "hdg_component_typical": "3.3 nF",
+      "hdg_symbol_raw": "C\nVDH",
+      "hdg_matched": true,
+      "nodes": [
+        "GND",
+        "R_VDH"
+      ],
+      "evidence": {
+        "bbox": [
+          500.0,
+          450.0,
+          520.0,
+          470.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_VDH",
+      "type": "resistor",
+      "function": "High-side driver series resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_VDH",
+        "TLE9872-2QTW40.VDH"
+      ],
+      "evidence": {
+        "bbox": [
+          500.0,
+          430.0,
+          520.0,
+          450.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_CP1H",
+      "type": "capacitor",
+      "function": "Charge pump capacitor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "TLE9872-2QTW40.CP1H"
+      ],
+      "evidence": {
+        "bbox": [
+          450.0,
+          500.0,
+          470.0,
+          520.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_CP1L",
+      "type": "capacitor",
+      "function": "Charge pump capacitor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "TLE9872-2QTW40.CP1L"
+      ],
+      "evidence": {
+        "bbox": [
+          450.0,
+          530.0,
+          470.0,
+          550.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_CP2H",
+      "type": "capacitor",
+      "function": "Charge pump capacitor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "TLE9872-2QTW40.CP2H"
+      ],
+      "evidence": {
+        "bbox": [
+          450.0,
+          560.0,
+          470.0,
+          580.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_CP2L",
+      "type": "capacitor",
+      "function": "Charge pump capacitor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "TLE9872-2QTW40.CP2L"
+      ],
+      "evidence": {
+        "bbox": [
+          450.0,
+          590.0,
+          470.0,
+          610.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_VCP",
+      "type": "capacitor",
+      "function": "Charge pump decoupling",
+      "value": null,
+      "hdg_function": "Charge pump capacitor (output bulk capacitor)",
+      "hdg_component_typical": "470 nF",
+      "hdg_symbol_raw": "C\nVCP",
+      "hdg_matched": true,
+      "nodes": [
+        "GND",
+        "TLE9872-2QTW40.VCP"
+      ],
+      "evidence": {
+        "bbox": [
+          450.0,
+          620.0,
+          470.0,
+          640.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_GH1",
+      "type": "resistor",
+      "function": "Gate resistor for high-side driver 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GH1",
+        "TLE9872-2QTW40.GH1"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          500.0,
+          620.0,
+          520.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_GH1",
+      "type": "capacitor",
+      "function": "Gate capacitor for high-side driver 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GH1",
+        "R_GH1"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          530.0,
+          620.0,
+          550.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "R_SH1",
+      "type": "resistor",
+      "function": "Sense resistor for high-side driver 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GND",
+        "SH1"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          560.0,
+          620.0,
+          580.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "R_GH2",
+      "type": "resistor",
+      "function": "Gate resistor for high-side driver 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GH2",
+        "TLE9872-2QTW40.GH2"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          600.0,
+          620.0,
+          620.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_GH2",
+      "type": "capacitor",
+      "function": "Gate capacitor for high-side driver 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GH2",
+        "R_GH2"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          630.0,
+          620.0,
+          650.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "R_SH2",
+      "type": "resistor",
+      "function": "Sense resistor for high-side driver 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GND",
+        "SH2"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          660.0,
+          620.0,
+          680.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "R_GH3",
+      "type": "resistor",
+      "function": "Gate resistor for high-side driver 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GH3",
+        "TLE9872-2QTW40.GH3"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          700.0,
+          620.0,
+          720.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "C_GH3",
+      "type": "capacitor",
+      "function": "Gate capacitor for high-side driver 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GH3",
+        "R_GH3"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          730.0,
+          620.0,
+          750.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_SH3",
+      "type": "resistor",
+      "function": "Sense resistor for high-side driver 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GND",
+        "SH3"
+      ],
+      "evidence": {
+        "bbox": [
+          600.0,
+          760.0,
+          620.0,
+          780.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_GL1",
+      "type": "resistor",
+      "function": "Gate resistor for low-side driver 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GL1",
+        "TLE9872-2QTW40.GL1"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          500.0,
+          720.0,
+          520.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_GL1",
+      "type": "capacitor",
+      "function": "Gate capacitor for low-side driver 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GL1",
+        "R_GL1"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          530.0,
+          720.0,
+          550.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_GL2",
+      "type": "resistor",
+      "function": "Gate resistor for low-side driver 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GL2",
+        "TLE9872-2QTW40.GL2"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          600.0,
+          720.0,
+          620.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_GL2",
+      "type": "capacitor",
+      "function": "Gate capacitor for low-side driver 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GL2",
+        "R_GL2"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          630.0,
+          720.0,
+          650.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_GL3",
+      "type": "resistor",
+      "function": "Gate resistor for low-side driver 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "C_GL3",
+        "TLE9872-2QTW40.GL3"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          700.0,
+          720.0,
+          720.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "C_GL3",
+      "type": "capacitor",
+      "function": "Gate capacitor for low-side driver 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GL3",
+        "R_GL3"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          730.0,
+          720.0,
+          750.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_SL",
+      "type": "resistor",
+      "function": "Sense resistor for low-side drivers",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "GND",
+        "SL"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          780.0,
+          720.0,
+          800.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_OP1",
+      "type": "resistor",
+      "function": "Operational amplifier input resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "OP1",
+        "TLE9872-2QTW40.OP1"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          850.0,
+          720.0,
+          870.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "R_OP2",
+      "type": "resistor",
+      "function": "Operational amplifier feedback resistor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [
+        "OP2",
+        "TLE9872-2QTW40.OP2"
+      ],
+      "evidence": {
+        "bbox": [
+          700.0,
+          820.0,
+          720.0,
+          840.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "TLE9872-2QTW40",
+      "type": "integrated_circuit",
+      "function": "BLDC motor control IC",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          300.0,
+          300.0,
+          600.0,
+          800.0
+        ],
+        "model_confidence": 0.99
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "TLE5009",
+      "type": "integrated_circuit",
+      "function": "Hall sensor IC",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          200.0,
+          400.0,
+          300.0,
+          500.0
+        ],
+        "model_confidence": 0.95
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "M",
+      "type": "motor",
+      "function": "3-phase BLDC motor",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          1000.0,
+          600.0,
+          1100.0,
+          700.0
+        ],
+        "model_confidence": 0.95
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "T1",
+      "type": "transistor",
+      "function": "High-side power MOSFET 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          800.0,
+          500.0,
+          850.0,
+          550.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "T2",
+      "type": "transistor",
+      "function": "High-side power MOSFET 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          800.0,
+          600.0,
+          850.0,
+          650.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "T3",
+      "type": "transistor",
+      "function": "High-side power MOSFET 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          800.0,
+          700.0,
+          850.0,
+          750.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "T4",
+      "type": "transistor",
+      "function": "Low-side power MOSFET 1",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          900.0,
+          500.0,
+          950.0,
+          550.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": false
+    },
+    {
+      "label": "T5",
+      "type": "transistor",
+      "function": "Low-side power MOSFET 2",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          900.0,
+          600.0,
+          950.0,
+          650.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    },
+    {
+      "label": "T6",
+      "type": "transistor",
+      "function": "Low-side power MOSFET 3",
+      "value": null,
+      "hdg_function": null,
+      "hdg_component_typical": null,
+      "hdg_symbol_raw": null,
+      "hdg_matched": false,
+      "nodes": [],
+      "evidence": {
+        "bbox": [
+          900.0,
+          700.0,
+          950.0,
+          750.0
+        ],
+        "model_confidence": 0.9
+      },
+      "geometry_verified": true
+    }
+  ],
+  "nodes": [
+    {
+      "name": "VBAT",
+      "description": "Battery supply voltage input",
+      "evidence": null
+    },
+    {
+      "name": "VS",
+      "description": "Supply voltage after reverse polarity protection",
+      "evidence": null
+    },
+    {
+      "name": "VDDP",
+      "description": "Pre-regulator supply voltage",
+      "evidence": null
+    },
+    {
+      "name": "VDDC",
+      "description": "Core supply voltage",
+      "evidence": null
+    },
+    {
+      "name": "VDDEXT",
+      "description": "External voltage regulator output",
+      "evidence": null
+    },
+    {
+      "name": "GND",
+      "description": "Ground reference",
+      "evidence": null
+    },
+    {
+      "name": "GND_LIN",
+      "description": "LIN bus ground reference",
+      "evidence": null
+    },
+    {
+      "name": "GND_REF",
+      "description": "Voltage reference ground (not connected to board GND)",
+      "evidence": null
+    },
+    {
+      "name": "LIN",
+      "description": "LIN bus communication line",
+      "evidence": null
+    },
+    {
+      "name": "IGN",
+      "description": "Ignition input signal",
+      "evidence": null
+    },
+    {
+      "name": "MON",
+      "description": "Monitor pin for diagnostics",
+      "evidence": null
+    },
+    {
+      "name": "VAREF",
+      "description": "Analog voltage reference",
+      "evidence": null
+    },
+    {
+      "name": "P2.0/ADC3_P",
+      "description": "General purpose I/O pin with ADC input",
+      "evidence": null
+    },
+    {
+      "name": "P2.2/ADC3_N",
+      "description": "General purpose I/O pin with ADC input",
+      "evidence": null
+    },
+    {
+      "name": "P2.4/ADC4_P",
+      "description": "General purpose I/O pin with ADC input",
+      "evidence": null
+    },
+    {
+      "name": "P2.5/ADC4_N",
+      "description": "General purpose I/O pin with ADC input",
+      "evidence": null
+    },
+    {
+      "name": "P2.3",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P0.3",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P0.2",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P0.1",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P0.4",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P1.4",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P1.3",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P1.2",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P1.1",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "P1.0",
+      "description": "General purpose I/O pin",
+      "evidence": null
+    },
+    {
+      "name": "RESET",
+      "description": "Reset input pin",
+      "evidence": null
+    },
+    {
+      "name": "TMS",
+      "description": "JTAG test mode select",
+      "evidence": null
+    },
+    {
+      "name": "P0.0",
+      "description": "General purpose I/O pin / debug connector",
+      "evidence": null
+    },
+    {
+      "name": "CP1H",
+      "description": "Charge pump high-side capacitor connection",
+      "evidence": null
+    },
+    {
+      "name": "CP1L",
+      "description": "Charge pump low-side capacitor connection",
+      "evidence": null
+    },
+    {
+      "name": "CP2H",
+      "description": "Charge pump high-side capacitor connection",
+      "evidence": null
+    },
+    {
+      "name": "CP2L",
+      "description": "Charge pump low-side capacitor connection",
+      "evidence": null
+    },
+    {
+      "name": "VCP",
+      "description": "Charge pump voltage node",
+      "evidence": null
+    },
+    {
+      "name": "VSD",
+      "description": "Voltage sense input",
+      "evidence": null
+    },
+    {
+      "name": "VDH",
+      "description": "High-side driver supply voltage",
+      "evidence": null
+    },
+    {
+      "name": "GH1",
+      "description": "High-side gate driver output 1",
+      "evidence": null
+    },
+    {
+      "name": "SH1",
+      "description": "High-side source/sense node 1",
+      "evidence": null
+    },
+    {
+      "name": "GH2",
+      "description": "High-side gate driver output 2",
+      "evidence": null
+    },
+    {
+      "name": "SH2",
+      "description": "High-side source/sense node 2",
+      "evidence": null
+    },
+    {
+      "name": "GH3",
+      "description": "High-side gate driver output 3",
+      "evidence": null
+    },
+    {
+      "name": "SH3",
+      "description": "High-side source/sense node 3",
+      "evidence": null
+    },
+    {
+      "name": "GL1",
+      "description": "Low-side gate driver output 1",
+      "evidence": null
+    },
+    {
+      "name": "SL",
+      "description": "Low-side source/sense node",
+      "evidence": null
+    },
+    {
+      "name": "GL2",
+      "description": "Low-side gate driver output 2",
+      "evidence": null
+    },
+    {
+      "name": "GL3",
+      "description": "Low-side gate driver output 3",
+      "evidence": null
+    },
+    {
+      "name": "OP1",
+      "description": "Operational amplifier input 1",
+      "evidence": null
+    },
+    {
+      "name": "OP2",
+      "description": "Operational amplifier input 2",
+      "evidence": null
+    }
+  ],
+  "connections": [
+    {
+      "source": "VBAT",
+      "target": "L_VS",
+      "relationship": "supplies",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "L_VS",
+      "target": "C_VS1",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "L_VS",
+      "target": "C_VS2",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VS1",
+      "target": "VS",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VS2",
+      "target": "VS",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VS",
+      "target": "D_VS",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "D_VS",
+      "target": "VDDP",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VDDP",
+      "target": "C_OVS",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VDDP",
+      "target": "VDDC",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VDDC",
+      "target": "C_VDD",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VDDC",
+      "target": "R_VDD",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_VDD",
+      "target": "TLE9872-2QTW40.VDD",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VDDC",
+      "target": "TLE9872-2QTW40.VDDP",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "VS",
+      "target": "TLE9872-2QTW40.VS",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "IGN",
+      "target": "TLE9872-2QTW40.IGN",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "LIN",
+      "target": "C_LIN",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_LIN",
+      "target": "TLE9872-2QTW40.LIN",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GND_LIN",
+      "target": "GND_LIN",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.VAREF",
+      "target": "C_VAREF",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VAREF",
+      "target": "GND_REF",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.VDDEXT",
+      "target": "C_VDDEXT",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VDDEXT",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.MON",
+      "target": "R_MON",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_MON",
+      "target": "C_MON",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_MON",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.P2.0/ADC3_P",
+      "target": "TLE5009.P2.0",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.P2.2/ADC3_N",
+      "target": "TLE5009.P2.2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.P2.4/ADC4_P",
+      "target": "TLE5009.P2.4",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.P2.5/ADC4_N",
+      "target": "TLE5009.P2.5",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.P2.3",
+      "target": "TLE5009.P2.3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE5009.GND",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.VCP",
+      "target": "C_VCP",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VCP",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.CP1H",
+      "target": "C_CP1H",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.CP1L",
+      "target": "C_CP1L",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.CP2H",
+      "target": "C_CP2H",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.CP2L",
+      "target": "C_CP2L",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.VSD",
+      "target": "R_VSD",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_VSD",
+      "target": "C_VSD",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VSD",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.VDH",
+      "target": "R_VDH",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_VDH",
+      "target": "C_VDH",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_VDH",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GH1",
+      "target": "R_GH1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GH1",
+      "target": "C_GH1",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GH1",
+      "target": "GH1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GH1",
+      "target": "T1.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T1.S",
+      "target": "SH1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "SH1",
+      "target": "R_SH1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_SH1",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GH2",
+      "target": "R_GH2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GH2",
+      "target": "C_GH2",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GH2",
+      "target": "GH2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GH2",
+      "target": "T2.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T2.S",
+      "target": "SH2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "SH2",
+      "target": "R_SH2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_SH2",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GH3",
+      "target": "R_GH3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GH3",
+      "target": "C_GH3",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GH3",
+      "target": "GH3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GH3",
+      "target": "T3.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T3.S",
+      "target": "SH3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "SH3",
+      "target": "R_SH3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_SH3",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GL1",
+      "target": "R_GL1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GL1",
+      "target": "C_GL1",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GL1",
+      "target": "GL1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GL1",
+      "target": "T4.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T4.S",
+      "target": "SL",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GL2",
+      "target": "R_GL2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GL2",
+      "target": "C_GL2",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GL2",
+      "target": "GL2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GL2",
+      "target": "T5.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T5.S",
+      "target": "SL",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.GL3",
+      "target": "R_GL3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_GL3",
+      "target": "C_GL3",
+      "relationship": "connected_between",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "C_GL3",
+      "target": "GL3",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "GL3",
+      "target": "T6.G",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T6.S",
+      "target": "SL",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "SL",
+      "target": "R_SL",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_SL",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.OP1",
+      "target": "R_OP1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_OP1",
+      "target": "OP1",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "TLE9872-2QTW40.OP2",
+      "target": "R_OP2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "R_OP2",
+      "target": "OP2",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T1.D",
+      "target": "M.U",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T2.D",
+      "target": "M.V",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T3.D",
+      "target": "M.W",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T4.D",
+      "target": "M.U",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T5.D",
+      "target": "M.V",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "T6.D",
+      "target": "M.W",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    },
+    {
+      "source": "M.GND",
+      "target": "GND",
+      "relationship": "connected_to",
+      "confidence": 0.8,
+      "evidence": null
+    }
+  ],
+  "uncertainties": [
+    {
+      "description": "The exact values of all capacitors and resistors are not visible in the schematic.",
+      "related_objects": []
+    },
+    {
+      "description": "The internal connections between the TLE9872-2QTW40 IC pins and internal blocks are not detailed in the schematic.",
+      "related_objects": []
+    },
+    {
+      "description": "The exact function of some pins (e.g., COS, CSN, VGM) is not clear from the visible labels alone.",
+      "related_objects": []
+    },
+    {
+      "description": "The connection between the TLE5009 Hall sensor and the motor phases is not explicitly shown in the schematic.",
+      "related_objects": []
+    },
+    {
+      "description": "Component 'C_MON' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "C_MON"
+      ]
+    },
+    {
+      "description": "Component 'R_MON' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_MON"
+      ]
+    },
+    {
+      "description": "Component 'C_LIN' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "C_LIN"
+      ]
+    },
+    {
+      "description": "Component 'C_VAREF' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "C_VAREF"
+      ]
+    },
+    {
+      "description": "Component 'R_GH1' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_GH1"
+      ]
+    },
+    {
+      "description": "Component 'C_GH1' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "C_GH1"
+      ]
+    },
+    {
+      "description": "Component 'R_SH1' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_SH1"
+      ]
+    },
+    {
+      "description": "Component 'R_GH2' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_GH2"
+      ]
+    },
+    {
+      "description": "Component 'C_GH2' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "C_GH2"
+      ]
+    },
+    {
+      "description": "Component 'R_SH2' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_SH2"
+      ]
+    },
+    {
+      "description": "Component 'R_GH3' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "R_GH3"
+      ]
+    },
+    {
+      "description": "Component 'T4' bounding box has no detected wire nearby — bbox may be misplaced.",
+      "related_objects": [
+        "T4"
+      ]
+    }
+  ]
+}

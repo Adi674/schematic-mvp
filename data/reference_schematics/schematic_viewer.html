@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schematic Reference Extractor Viewer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bbox-overlay {
+            position: absolute;
+            border: 2px solid rgba(239, 68, 68, 0.85);
+            background-color: rgba(239, 68, 68, 0.15);
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            box-sizing: border-box;
+        }
+        .bbox-overlay:hover, .bbox-overlay.active {
+            border-color: rgba(37, 99, 235, 1) !important;
+            background-color: rgba(37, 99, 235, 0.35) !important;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.6);
+        }
+        .bbox-overlay.verified {
+            border-color: rgba(16, 185, 129, 0.85);
+            background-color: rgba(16, 185, 129, 0.15);
+        }
+        
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between shadow-md z-20">
+        <div class="flex items-center space-x-3">
+            <span class="text-xl font-bold tracking-tight">Schematic Extractor Ground Truth Viewer</span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <!-- View Mode Tabs -->
+            <div class="flex bg-slate-800 p-0.5 rounded-lg border border-slate-700">
+                <button id="view-mode-visual" class="px-4 py-1.5 rounded-md text-xs font-semibold bg-blue-600 text-white transition-all shadow-sm">
+                    Visual Overlay Map
+                </button>
+                <button id="view-mode-table" class="px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition-all">
+                    Table Data View
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <label for="schematic-select" class="text-sm font-medium text-slate-300">Select Schematic:</label>
+                <select id="schematic-select" class="bg-slate-800 border border-slate-700 text-white rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="tle987x">TLE987x (Figure 2)</option>
+                    <option value="tle987x_2qx">TLE987x-2QX (Figure 3)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <div id="visual-mode-container" class="flex-1 flex overflow-hidden">
+        
+        <!-- Sidebar: Component list & Search -->
+        <aside class="w-80 bg-white border-r border-slate-200 flex flex-col h-full shadow-sm z-10">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+                <input type="text" id="search-input" placeholder="Search components (e.g. C_VS)..." class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="flex items-center justify-between mt-2 text-xs text-slate-500">
+                    <span id="comp-count">0 components</span>
+                    <label class="flex items-center space-x-1 cursor-pointer">
+                        <input type="checkbox" id="show-bboxes-toggle" checked class="rounded text-blue-600 focus:ring-blue-500">
+                        <span>Show BBox Overlays</span>
+                    </label>
+                </div>
+            </div>
+            <div id="component-list" class="flex-1 overflow-y-auto divide-y divide-slate-100">
+                <!-- Populated dynamically -->
+            </div>
+        </aside>
+
+        <!-- Viewer / Image Area -->
+        <main class="flex-1 bg-slate-200 overflow-auto relative p-8 flex items-start justify-center">
+            <div id="image-wrapper" class="relative bg-white shadow-lg border border-slate-300 rounded select-none">
+                <img id="schematic-image" src="" alt="Schematic Image" class="block max-w-none pointer-events-none">
+                <div id="overlay-container" class="absolute inset-0 pointer-events-auto"></div>
+            </div>
+        </main>
+
+        <!-- Sidebar Right: Detailed Inspector -->
+        <aside class="w-96 bg-white border-l border-slate-200 flex flex-col h-full shadow-sm z-10 overflow-y-auto">
+            <div class="p-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                <h2 class="font-bold text-lg text-slate-900">Component Details</h2>
+                <span id="inspector-verified-tag" class="hidden px-2 py-0.5 text-xs font-semibold rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Geometry Verified</span>
+            </div>
+            
+            <div id="inspector-placeholder" class="p-6 text-center text-slate-400 my-auto">
+                <svg class="mx-auto h-12 w-12 text-slate-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <p class="text-sm">Hover over or click a bounding box on the schematic to inspect component parameters.</p>
+            </div>
+
+            <div id="inspector-content" class="p-6 space-y-6 hidden">
+                <div>
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Component Ref</span>
+                    <span id="inspect-label" class="text-2xl font-bold text-slate-900">-</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Type</span>
+                        <span id="inspect-type" class="px-2 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded capitalize inline-block">-</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Extracted Value</span>
+                        <span id="inspect-value" class="text-sm font-semibold text-slate-900">-</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Function (Extractor)</span>
+                    <p id="inspect-function" class="text-sm text-slate-700 bg-slate-50 p-2.5 rounded border border-slate-100 italic">-</p>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <h3 class="text-sm font-bold text-slate-900 mb-3 flex items-center">
+                        <svg class="h-4 w-4 text-blue-500 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        HDG Table 3 Spec (Joined)
+                    </h3>
+                    <div id="hdg-matched-area" class="space-y-3">
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400 block mb-0.5">Matched HDG Symbol</span>
+                            <code id="inspect-hdg-symbol" class="text-xs bg-slate-100 px-1.5 py-0.5 rounded text-blue-700 font-mono">-</code>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400 block mb-0.5">Typical Value/Range</span>
+                            <span id="inspect-hdg-typical" class="text-sm font-semibold text-slate-900">-</span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-slate-400 block mb-0.5">HDG Official Function</span>
+                            <p id="inspect-hdg-function" class="text-sm text-slate-700 bg-blue-50/50 p-2.5 rounded border border-blue-100/50">-</p>
+                        </div>
+                    </div>
+                    <div id="hdg-unmatched-area" class="text-sm text-amber-600 bg-amber-50 p-3 rounded border border-amber-200 hidden">
+                        No exact match found in Hardware Design Guideline Table 3 (BOM).
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Connected Nodes</span>
+                    <div id="inspect-nodes" class="flex flex-wrap gap-1.5 mt-1">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4 opacity-50">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">BBox Coordinates (Estimated)</span>
+                    <code id="inspect-bbox-coords" class="text-xs bg-slate-100 p-1.5 rounded block font-mono text-slate-600">-</code>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Table Mode Container -->
+    <div id="table-mode-container" class="flex-1 overflow-auto p-6 hidden">
+        <div class="bg-white rounded-lg shadow border border-slate-200 overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                <h3 class="font-bold text-slate-800 text-lg">Extracted Component Ledger</h3>
+                <span class="text-xs text-slate-500 italic">This ledger represents the parsed reference schematic structure used for verification checks.</span>
+            </div>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-bold border-b border-slate-200">
+                        <th class="p-3">Label</th>
+                        <th class="p-3">Type</th>
+                        <th class="p-3">Value</th>
+                        <th class="p-3">Extracted Function</th>
+                        <th class="p-3">HDG Typical Value</th>
+                        <th class="p-3">HDG Mapped Function</th>
+                        <th class="p-3">Connected Pins/Nets</th>
+                    </tr>
+                </thead>
+                <tbody id="table-view-body" class="divide-y divide-slate-200 text-sm">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Data Injection & Engine Scripts -->
+    <script>
+        const schematics = {
+            tle987x: {
+                data: {"schema_version": "1.0", "device": "TLE987x", "hdg_version": "1.1", "source_figure": "fig_2_application_schemati.png", "generated_at": "2026-08-21T07:38:03.778785+00:00", "components": [{"label": "C_BAT", "type": "capacitor", "function": "EMC filter input capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["L_Bat", "VS"], "evidence": {"bbox": [100.0, 100.0, 140.0, 140.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VS", "type": "capacitor", "function": "Decoupling capacitor for VS", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_VS", "VDDP"], "evidence": {"bbox": [280.0, 200.0, 320.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VDDP", "type": "capacitor", "function": "Decoupling capacitor for VDDP", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_VDDP", "VDDC"], "evidence": {"bbox": [320.0, 200.0, 360.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VDDC", "type": "capacitor", "function": "Decoupling capacitor for VDDC", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_VDDC", "VDDEXT"], "evidence": {"bbox": [360.0, 200.0, 400.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VDDEXT", "type": "capacitor", "function": "Decoupling capacitor for VDDEXT", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_VDDEXT", "TLE987x"], "evidence": {"bbox": [400.0, 200.0, 440.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_OVS", "type": "capacitor", "function": "OVS decoupling capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["OVS", "R_OVS"], "evidence": {"bbox": [280.0, 240.0, 320.0, 280.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_MON", "type": "capacitor", "function": "MON decoupling capacitor", "value": null, "hdg_function": "Filter capacitor at MON pin (high-voltage monitor input)", "hdg_component_typical": "10 nF", "hdg_symbol_raw": "C\nMON", "hdg_matched": true, "nodes": ["MON", "R_MON"], "evidence": {"bbox": [320.0, 240.0, 360.0, 280.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_LIN", "type": "capacitor", "function": "LIN bus capacitor", "value": null, "hdg_function": "Filter capacitor at LIN pin", "hdg_component_typical": "220 pF", "hdg_symbol_raw": "C\nLIN", "hdg_matched": true, "nodes": ["LIN", "R_LIN"], "evidence": {"bbox": [180.0, 320.0, 220.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_CP1H", "type": "capacitor", "function": "Charge pump capacitor 1H", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_CP1H", "TLE987x"], "evidence": {"bbox": [520.0, 320.0, 560.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_CP1L", "type": "capacitor", "function": "Charge pump capacitor 1L", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_CP1L", "TLE987x"], "evidence": {"bbox": [560.0, 320.0, 600.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_CP2H", "type": "capacitor", "function": "Charge pump capacitor 2H", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_CP2H", "TLE987x"], "evidence": {"bbox": [520.0, 360.0, 560.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_CP2L", "type": "capacitor", "function": "Charge pump capacitor 2L", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_CP2L", "TLE987x"], "evidence": {"bbox": [560.0, 360.0, 600.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VCP", "type": "capacitor", "function": "VCP decoupling capacitor", "value": null, "hdg_function": "Charge pump capacitor (output bulk capacitor)", "hdg_component_typical": "470 nF", "hdg_symbol_raw": "C\nVCP", "hdg_matched": true, "nodes": ["R_VCP", "TLE987x"], "evidence": {"bbox": [600.0, 320.0, 640.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VSD", "type": "capacitor", "function": "VSD decoupling capacitor", "value": null, "hdg_function": "Filter capacitor at VSD pin (charge pump supply)", "hdg_component_typical": "1 μF", "hdg_symbol_raw": "C\nVSD", "hdg_matched": true, "nodes": ["R_VSD", "TLE987x"], "evidence": {"bbox": [640.0, 320.0, 680.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VDH", "type": "capacitor", "function": "VDH decoupling capacitor", "value": null, "hdg_function": "Filter capacitor at VDH pin (drain high-side MOSFET driver)", "hdg_component_typical": "3.3 nF", "hdg_symbol_raw": "C\nVDH", "hdg_matched": true, "nodes": ["R_VDH", "TLE987x"], "evidence": {"bbox": [640.0, 360.0, 680.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GH1", "type": "capacitor", "function": "Gate driver capacitor GH1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GH1", "TLE987x"], "evidence": {"bbox": [720.0, 320.0, 760.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_SH1", "type": "capacitor", "function": "Sense capacitor SH1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_SH1", "TLE987x"], "evidence": {"bbox": [720.0, 360.0, 760.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GH2", "type": "capacitor", "function": "Gate driver capacitor GH2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GH2", "TLE987x"], "evidence": {"bbox": [760.0, 320.0, 800.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_SH2", "type": "capacitor", "function": "Sense capacitor SH2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_SH2", "TLE987x"], "evidence": {"bbox": [760.0, 360.0, 800.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GH3", "type": "capacitor", "function": "Gate driver capacitor GH3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GH3", "TLE987x"], "evidence": {"bbox": [800.0, 320.0, 840.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_SH3", "type": "capacitor", "function": "Sense capacitor SH3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_SH3", "TLE987x"], "evidence": {"bbox": [800.0, 360.0, 840.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GL1", "type": "capacitor", "function": "Gate driver capacitor GL1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GL1", "TLE987x"], "evidence": {"bbox": [720.0, 400.0, 760.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GL2", "type": "capacitor", "function": "Gate driver capacitor GL2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GL2", "TLE987x"], "evidence": {"bbox": [760.0, 400.0, 800.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_GL3", "type": "capacitor", "function": "Gate driver capacitor GL3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_GL3", "TLE987x"], "evidence": {"bbox": [800.0, 400.0, 840.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_SLO", "type": "capacitor", "function": "SLO decoupling capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_SLO", "TLE987x"], "evidence": {"bbox": [680.0, 400.0, 720.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_OP2", "type": "capacitor", "function": "OP2 decoupling capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_OP2", "TLE987x"], "evidence": {"bbox": [640.0, 400.0, 680.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_OP1", "type": "capacitor", "function": "OP1 decoupling capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_OP1", "TLE987x"], "evidence": {"bbox": [600.0, 400.0, 640.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VS", "type": "resistor", "function": "Series resistor for VS", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VS", "D_VS"], "evidence": {"bbox": [240.0, 200.0, 280.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VDDP", "type": "resistor", "function": "Series resistor for VDDP", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VDDP", "VDDP"], "evidence": {"bbox": [280.0, 200.0, 320.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VDDC", "type": "resistor", "function": "Series resistor for VDDC", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VDDC", "VDDC"], "evidence": {"bbox": [320.0, 200.0, 360.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VDDEXT", "type": "resistor", "function": "Series resistor for VDDEXT", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VDDEXT", "VDDEXT"], "evidence": {"bbox": [360.0, 200.0, 400.0, 240.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_OVS", "type": "resistor", "function": "Series resistor for OVS", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_OVS", "VS"], "evidence": {"bbox": [280.0, 240.0, 320.0, 280.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_MON", "type": "resistor", "function": "Series resistor for MON", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_MON", "VS"], "evidence": {"bbox": [320.0, 240.0, 360.0, 280.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_LIN", "type": "resistor", "function": "Series resistor for LIN", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_LIN", "LIN"], "evidence": {"bbox": [180.0, 320.0, 220.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_CP1H", "type": "resistor", "function": "Series resistor for CP1H", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["CP1H", "C_CP1H"], "evidence": {"bbox": [520.0, 320.0, 560.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_CP1L", "type": "resistor", "function": "Series resistor for CP1L", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["CP1L", "C_CP1L"], "evidence": {"bbox": [560.0, 320.0, 600.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_CP2H", "type": "resistor", "function": "Series resistor for CP2H", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["CP2H", "C_CP2H"], "evidence": {"bbox": [520.0, 360.0, 560.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_CP2L", "type": "resistor", "function": "Series resistor for CP2L", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["CP2L", "C_CP2L"], "evidence": {"bbox": [560.0, 360.0, 600.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VCP", "type": "resistor", "function": "Series resistor for VCP", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VCP", "VCP"], "evidence": {"bbox": [600.0, 320.0, 640.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VSD", "type": "resistor", "function": "Series resistor for VSD", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VSD", "VSD"], "evidence": {"bbox": [640.0, 320.0, 680.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_VDH", "type": "resistor", "function": "Series resistor for VDH", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VDH", "VDH"], "evidence": {"bbox": [640.0, 360.0, 680.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GH1", "type": "resistor", "function": "Series resistor for GH1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH1", "GH1"], "evidence": {"bbox": [720.0, 320.0, 760.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_SH1", "type": "resistor", "function": "Series resistor for SH1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_SH1", "SH1"], "evidence": {"bbox": [720.0, 360.0, 760.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GH2", "type": "resistor", "function": "Series resistor for GH2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH2", "GH2"], "evidence": {"bbox": [760.0, 320.0, 800.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_SH2", "type": "resistor", "function": "Series resistor for SH2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_SH2", "SH2"], "evidence": {"bbox": [760.0, 360.0, 800.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GH3", "type": "resistor", "function": "Series resistor for GH3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH3", "GH3"], "evidence": {"bbox": [800.0, 320.0, 840.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_SH3", "type": "resistor", "function": "Series resistor for SH3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_SH3", "SH3"], "evidence": {"bbox": [800.0, 360.0, 840.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GL1", "type": "resistor", "function": "Series resistor for GL1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL1", "GL1"], "evidence": {"bbox": [720.0, 400.0, 760.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GL2", "type": "resistor", "function": "Series resistor for GL2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL2", "GL2"], "evidence": {"bbox": [760.0, 400.0, 800.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_GL3", "type": "resistor", "function": "Series resistor for GL3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL3", "GL3"], "evidence": {"bbox": [800.0, 400.0, 840.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_SLO", "type": "resistor", "function": "Series resistor for SLO", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_SLO", "SLO"], "evidence": {"bbox": [680.0, 400.0, 720.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_OP2", "type": "resistor", "function": "Series resistor for OP2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_OP2", "OP2"], "evidence": {"bbox": [640.0, 400.0, 680.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_OP1", "type": "resistor", "function": "Series resistor for OP1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_OP1", "OP1"], "evidence": {"bbox": [600.0, 400.0, 640.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "D_VS", "type": "diode", "function": "Protection diode for VS", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_VS", "VS"], "evidence": {"bbox": [240.0, 160.0, 280.0, 200.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "D_Hall1", "type": "diode", "function": "Hall sensor 1 protection diode", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [180.0, 440.0, 220.0, 480.0], "model_confidence": 0.95}, "geometry_verified": false}, {"label": "D_Hall2", "type": "diode", "function": "Hall sensor 2 protection diode", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [180.0, 480.0, 220.0, 520.0], "model_confidence": 0.95}, "geometry_verified": false}, {"label": "D_Hall3", "type": "diode", "function": "Hall sensor 3 protection diode", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [180.0, 520.0, 220.0, 560.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T1", "type": "transistor", "function": "High-side MOSFET 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH1", "U"], "evidence": {"bbox": [840.0, 320.0, 880.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T2", "type": "transistor", "function": "High-side MOSFET 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH2", "V"], "evidence": {"bbox": [840.0, 360.0, 880.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T3", "type": "transistor", "function": "High-side MOSFET 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH3", "W"], "evidence": {"bbox": [840.0, 400.0, 880.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T4", "type": "transistor", "function": "Low-side MOSFET 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL1", "GND"], "evidence": {"bbox": [880.0, 320.0, 920.0, 360.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T5", "type": "transistor", "function": "Low-side MOSFET 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL2", "GND"], "evidence": {"bbox": [880.0, 360.0, 920.0, 400.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T6", "type": "transistor", "function": "Low-side MOSFET 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL3", "GND"], "evidence": {"bbox": [880.0, 400.0, 920.0, 440.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "TLE987x", "type": "integrated_circuit", "function": "BLDC motor driver IC", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_CP1H", "C_CP1L", "C_CP2H", "C_CP2L", "C_GH1", "C_GH2", "C_GH3", "C_GL1", "C_GL2", "C_GL3", "C_OP1", "C_OP2", "C_SH1", "C_SH2", "C_SH3", "C_SLO", "C_VCP", "C_VDDEXT", "C_VDH", "C_VSD", "GH1", "GH2", "GH3", "GL1", "GL2", "GL3", "GND_LIN", "GND_REF", "IGN", "LIN", "MON", "OVS", "P0.0", "P0.1", "P0.2", "P0.3", "P0.4", "P1.0", "P1.1", "P1.2", "P1.3", "P1.4", "P2.0", "P2.2", "P2.3", "P2.4", "P2.5", "RESET", "TMS", "VAREF"], "evidence": {"bbox": [200.0, 400.0, 500.0, 800.0], "model_confidence": 0.99}, "geometry_verified": true}, {"label": "M", "type": "motor", "function": "BLDC motor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["U", "V", "W"], "evidence": {"bbox": [1200.0, 400.0, 1300.0, 600.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "L_Bat", "type": "inductor", "function": "Battery line inductor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_BAT", "VBAT"], "evidence": {"bbox": [140.0, 100.0, 180.0, 140.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "R_Pol", "type": "resistor", "function": "Polarity protection resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["D_Pol", "VS"], "evidence": {"bbox": [840.0, 160.0, 880.0, 200.0], "model_confidence": 0.95}, "geometry_verified": false}, {"label": "D_Pol", "type": "diode", "function": "Polarity protection diode", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["R_Pol", "VBAT"], "evidence": {"bbox": [800.0, 160.0, 840.0, 200.0], "model_confidence": 0.95}, "geometry_verified": false}], "nodes": [{"name": "VBAT", "description": "Battery positive supply voltage", "evidence": null}, {"name": "GND", "description": "Ground reference", "evidence": null}, {"name": "VS", "description": "Supply voltage node", "evidence": null}, {"name": "VDDP", "description": "VDDP supply voltage node", "evidence": null}, {"name": "VDDC", "description": "VDDC supply voltage node", "evidence": null}, {"name": "VDDEXT", "description": "VDDEXT supply voltage node", "evidence": null}, {"name": "OVS", "description": "OVS node", "evidence": null}, {"name": "MON", "description": "MON node", "evidence": null}, {"name": "LIN", "description": "LIN bus node", "evidence": null}, {"name": "GND_LIN", "description": "Ground reference for LIN", "evidence": null}, {"name": "VAREF", "description": "Analog reference voltage", "evidence": null}, {"name": "GND_REF", "description": "Ground reference for analog", "evidence": null}, {"name": "CP1H", "description": "Charge pump node 1H", "evidence": null}, {"name": "CP1L", "description": "Charge pump node 1L", "evidence": null}, {"name": "CP2H", "description": "Charge pump node 2H", "evidence": null}, {"name": "CP2L", "description": "Charge pump node 2L", "evidence": null}, {"name": "VCP", "description": "VCP node", "evidence": null}, {"name": "VSD", "description": "VSD node", "evidence": null}, {"name": "VDH", "description": "VDH node", "evidence": null}, {"name": "GH1", "description": "Gate driver output 1", "evidence": null}, {"name": "SH1", "description": "Sense node 1", "evidence": null}, {"name": "GH2", "description": "Gate driver output 2", "evidence": null}, {"name": "SH2", "description": "Sense node 2", "evidence": null}, {"name": "GH3", "description": "Gate driver output 3", "evidence": null}, {"name": "SH3", "description": "Sense node 3", "evidence": null}, {"name": "GL1", "description": "Gate driver output 1 (low-side)", "evidence": null}, {"name": "GL2", "description": "Gate driver output 2 (low-side)", "evidence": null}, {"name": "GL3", "description": "Gate driver output 3 (low-side)", "evidence": null}, {"name": "SLO", "description": "SLO node", "evidence": null}, {"name": "OP2", "description": "OP2 node", "evidence": null}, {"name": "OP1", "description": "OP1 node", "evidence": null}, {"name": "P0.0", "description": "Port 0.0 pin", "evidence": null}, {"name": "P0.1", "description": "Port 0.1 pin", "evidence": null}, {"name": "P0.2", "description": "Port 0.2 pin", "evidence": null}, {"name": "P0.3", "description": "Port 0.3 pin", "evidence": null}, {"name": "P0.4", "description": "Port 0.4 pin", "evidence": null}, {"name": "P1.0", "description": "Port 1.0 pin", "evidence": null}, {"name": "P1.1", "description": "Port 1.1 pin", "evidence": null}, {"name": "P1.2", "description": "Port 1.2 pin", "evidence": null}, {"name": "P1.3", "description": "Port 1.3 pin", "evidence": null}, {"name": "P1.4", "description": "Port 1.4 pin", "evidence": null}, {"name": "P2.0", "description": "Port 2.0 pin", "evidence": null}, {"name": "P2.2", "description": "Port 2.2 pin", "evidence": null}, {"name": "P2.3", "description": "Port 2.3 pin", "evidence": null}, {"name": "P2.4", "description": "Port 2.4 pin", "evidence": null}, {"name": "P2.5", "description": "Port 2.5 pin", "evidence": null}, {"name": "RESET", "description": "Reset pin", "evidence": null}, {"name": "TMS", "description": "Test mode select pin", "evidence": null}, {"name": "IGN", "description": "Ignition input", "evidence": null}, {"name": "U", "description": "Motor phase U", "evidence": null}, {"name": "V", "description": "Motor phase V", "evidence": null}, {"name": "W", "description": "Motor phase W", "evidence": null}], "connections": [{"source": "VBAT", "target": "L_Bat", "relationship": "supplies", "confidence": 0.8, "evidence": null}, {"source": "L_Bat", "target": "C_BAT", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "C_BAT", "target": "VS", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "VS", "target": "D_VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "D_VS", "target": "R_VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VS", "target": "C_VS", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VS", "target": "VDDP", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDP", "target": "R_VDDP", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDDP", "target": "C_VDDP", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDDP", "target": "VDDC", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDC", "target": "R_VDDC", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDDC", "target": "C_VDDC", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDDC", "target": "VDDEXT", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDEXT", "target": "R_VDDEXT", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDDEXT", "target": "C_VDDEXT", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDDEXT", "target": "TLE987x", "relationship": "supplies", "confidence": 0.8, "evidence": null}, {"source": "VS", "target": "R_OVS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_OVS", "target": "C_OVS", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_OVS", "target": "OVS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "OVS", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VS", "target": "R_MON", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_MON", "target": "C_MON", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_MON", "target": "MON", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "MON", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "IGN", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "LIN", "target": "R_LIN", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_LIN", "target": "C_LIN", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_LIN", "target": "LIN", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "LIN", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GND_LIN", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VAREF", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GND_REF", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "CP1H", "target": "R_CP1H", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_CP1H", "target": "C_CP1H", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_CP1H", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "CP1L", "target": "R_CP1L", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_CP1L", "target": "C_CP1L", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_CP1L", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "CP2H", "target": "R_CP2H", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_CP2H", "target": "C_CP2H", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_CP2H", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "CP2L", "target": "R_CP2L", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_CP2L", "target": "C_CP2L", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_CP2L", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VCP", "target": "R_VCP", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VCP", "target": "C_VCP", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VCP", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VSD", "target": "R_VSD", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VSD", "target": "C_VSD", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VSD", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDH", "target": "R_VDH", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDH", "target": "C_VDH", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDH", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH1", "target": "R_GH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH1", "target": "C_GH1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH1", "target": "R_SH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH1", "target": "C_SH1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_SH1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH2", "target": "R_GH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH2", "target": "C_GH2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH2", "target": "R_SH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH2", "target": "C_SH2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_SH2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH3", "target": "R_GH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH3", "target": "C_GH3", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH3", "target": "R_SH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH3", "target": "C_SH3", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_SH3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL1", "target": "R_GL1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL1", "target": "C_GL1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL2", "target": "R_GL2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL2", "target": "C_GL2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL3", "target": "R_GL3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL3", "target": "C_GL3", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SLO", "target": "R_SLO", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SLO", "target": "C_SLO", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_SLO", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "OP2", "target": "R_OP2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_OP2", "target": "C_OP2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_OP2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "OP1", "target": "R_OP1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_OP1", "target": "C_OP1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_OP1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P0.0", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P0.1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P0.2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P0.3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P0.4", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P1.0", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P1.1", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P1.2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P1.3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P1.4", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P2.0", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P2.2", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P2.3", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P2.4", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "P2.5", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "RESET", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TMS", "target": "TLE987x", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GH1", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GH2", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GH3", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GL1", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GL2", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "TLE987x", "target": "GL3", "relationship": "feeds", "confidence": 0.8, "evidence": null}, {"source": "GH1", "target": "T1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T1", "target": "U", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH2", "target": "T2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T2", "target": "V", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH3", "target": "T3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T3", "target": "W", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL1", "target": "T4", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T4", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL2", "target": "T5", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T5", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL3", "target": "T6", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T6", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "D_Pol", "target": "R_Pol", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_Pol", "target": "VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "D_Pol", "target": "VBAT", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "M", "target": "U", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "M", "target": "V", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "M", "target": "W", "relationship": "connected_to", "confidence": 0.8, "evidence": null}], "uncertainties": [{"description": "The exact values of all capacitors and resistors are not visible in the schematic.", "related_objects": []}, {"description": "The Hall sensor connections are shown but their exact function and connections to the TLE987x are not fully detailed.", "related_objects": []}, {"description": "The temperature sensor connection is shown but its exact wiring to the TLE987x is not visible.", "related_objects": []}, {"description": "The debug connector pins are labeled but their exact functions are not specified.", "related_objects": []}, {"description": "The input protection circuits are shown but their exact components and connections are not detailed.", "related_objects": []}, {"description": "The polarity protection circuit components are shown but their exact values and functions are not specified.", "related_objects": []}, {"description": "Component 'D_Hall1' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["D_Hall1"]}, {"description": "Component 'D_Hall2' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["D_Hall2"]}, {"description": "Component 'R_Pol' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_Pol"]}, {"description": "Component 'D_Pol' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["D_Pol"]}]},
+                image: "../figures/fig_2_application_schemati.png"
+            },
+            tle987x_2qx: {
+                data: {"schema_version": "1.0", "device": "TLE987x-2QX", "hdg_version": "1.1", "source_figure": "fig_3_application_schemati.png", "generated_at": "2026-08-21T07:38:54.354460+00:00", "components": [{"label": "L_VS", "type": "inductor", "function": "EMC filter series choke", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VS1", "C_VS2", "VBAT"], "evidence": {"bbox": [100.0, 100.0, 140.0, 140.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_VS1", "type": "capacitor", "function": "EMC filter decoupling", "value": null, "hdg_function": "Filter capacitor at VS pin (TLE987x supply)", "hdg_component_typical": ">= 100 nF", "hdg_symbol_raw": "C\nVS1", "hdg_matched": true, "nodes": ["L_VS", "VS"], "evidence": {"bbox": [100.0, 150.0, 120.0, 170.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_VS2", "type": "capacitor", "function": "EMC filter decoupling", "value": null, "hdg_function": "Bulk capacitor at VS pin (TLE987x supply)", "hdg_component_typical": "> 2.2 μF", "hdg_symbol_raw": "C\nVS2", "hdg_matched": true, "nodes": ["L_VS", "VS"], "evidence": {"bbox": [130.0, 150.0, 150.0, 170.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "D_VS", "type": "diode", "function": "Reverse polarity protection", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["VDDP", "VS"], "evidence": {"bbox": [200.0, 120.0, 220.0, 140.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "C_OVS", "type": "capacitor", "function": "Overvoltage protection decoupling", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["VDDP"], "evidence": {"bbox": [250.0, 120.0, 270.0, 140.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_MON", "type": "capacitor", "function": "Monitor pin decoupling", "value": null, "hdg_function": "Filter capacitor at MON pin (high-voltage monitor input)", "hdg_component_typical": "10 nF", "hdg_symbol_raw": "C\nMON", "hdg_matched": true, "nodes": ["GND", "R_MON"], "evidence": {"bbox": [300.0, 180.0, 320.0, 200.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "R_MON", "type": "resistor", "function": "Monitor pin series resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_MON", "TLE9872-2QTW40.MON"], "evidence": {"bbox": [300.0, 160.0, 320.0, 180.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_LIN", "type": "capacitor", "function": "LIN bus decoupling", "value": null, "hdg_function": "Filter capacitor at LIN pin", "hdg_component_typical": "220 pF", "hdg_symbol_raw": "C\nLIN", "hdg_matched": true, "nodes": ["LIN", "TLE9872-2QTW40.LIN"], "evidence": {"bbox": [250.0, 250.0, 270.0, 270.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_VAREF", "type": "capacitor", "function": "Voltage reference decoupling", "value": null, "hdg_function": "Filter capacitor at VAREF pin (analog reference)", "hdg_component_typical": "100 nF", "hdg_symbol_raw": "C\nVAREF", "hdg_matched": true, "nodes": ["GND_REF", "TLE9872-2QTW40.VAREF"], "evidence": {"bbox": [300.0, 250.0, 320.0, 270.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_VDDEXT", "type": "capacitor", "function": "External voltage regulator decoupling", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GND", "TLE9872-2QTW40.VDDEXT"], "evidence": {"bbox": [300.0, 300.0, 320.0, 320.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_VDD", "type": "capacitor", "function": "Core voltage decoupling", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["VDDC"], "evidence": {"bbox": [350.0, 350.0, 370.0, 370.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_VDD", "type": "resistor", "function": "Core voltage series resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["TLE9872-2QTW40.VDD", "VDDC"], "evidence": {"bbox": [350.0, 330.0, 370.0, 350.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_VSD", "type": "capacitor", "function": "Voltage sense decoupling", "value": null, "hdg_function": "Filter capacitor at VSD pin (charge pump supply)", "hdg_component_typical": "1 μF", "hdg_symbol_raw": "C\nVSD", "hdg_matched": true, "nodes": ["GND", "R_VSD"], "evidence": {"bbox": [500.0, 400.0, 520.0, 420.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_VSD", "type": "resistor", "function": "Voltage sense series resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VSD", "TLE9872-2QTW40.VSD"], "evidence": {"bbox": [500.0, 380.0, 520.0, 400.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_VDH", "type": "capacitor", "function": "High-side driver decoupling", "value": null, "hdg_function": "Filter capacitor at VDH pin (drain high-side MOSFET driver)", "hdg_component_typical": "3.3 nF", "hdg_symbol_raw": "C\nVDH", "hdg_matched": true, "nodes": ["GND", "R_VDH"], "evidence": {"bbox": [500.0, 450.0, 520.0, 470.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_VDH", "type": "resistor", "function": "High-side driver series resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_VDH", "TLE9872-2QTW40.VDH"], "evidence": {"bbox": [500.0, 430.0, 520.0, 450.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_CP1H", "type": "capacitor", "function": "Charge pump capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["TLE9872-2QTW40.CP1H"], "evidence": {"bbox": [450.0, 500.0, 470.0, 520.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_CP1L", "type": "capacitor", "function": "Charge pump capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["TLE9872-2QTW40.CP1L"], "evidence": {"bbox": [450.0, 530.0, 470.0, 550.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_CP2H", "type": "capacitor", "function": "Charge pump capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["TLE9872-2QTW40.CP2H"], "evidence": {"bbox": [450.0, 560.0, 470.0, 580.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_CP2L", "type": "capacitor", "function": "Charge pump capacitor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["TLE9872-2QTW40.CP2L"], "evidence": {"bbox": [450.0, 590.0, 470.0, 610.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_VCP", "type": "capacitor", "function": "Charge pump decoupling", "value": null, "hdg_function": "Charge pump capacitor (output bulk capacitor)", "hdg_component_typical": "470 nF", "hdg_symbol_raw": "C\nVCP", "hdg_matched": true, "nodes": ["GND", "TLE9872-2QTW40.VCP"], "evidence": {"bbox": [450.0, 620.0, 470.0, 640.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_GH1", "type": "resistor", "function": "Gate resistor for high-side driver 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH1", "TLE9872-2QTW40.GH1"], "evidence": {"bbox": [600.0, 500.0, 620.0, 520.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_GH1", "type": "capacitor", "function": "Gate capacitor for high-side driver 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH1", "R_GH1"], "evidence": {"bbox": [600.0, 530.0, 620.0, 550.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "R_SH1", "type": "resistor", "function": "Sense resistor for high-side driver 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GND", "SH1"], "evidence": {"bbox": [600.0, 560.0, 620.0, 580.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "R_GH2", "type": "resistor", "function": "Gate resistor for high-side driver 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH2", "TLE9872-2QTW40.GH2"], "evidence": {"bbox": [600.0, 600.0, 620.0, 620.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_GH2", "type": "capacitor", "function": "Gate capacitor for high-side driver 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH2", "R_GH2"], "evidence": {"bbox": [600.0, 630.0, 620.0, 650.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "R_SH2", "type": "resistor", "function": "Sense resistor for high-side driver 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GND", "SH2"], "evidence": {"bbox": [600.0, 660.0, 620.0, 680.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "R_GH3", "type": "resistor", "function": "Gate resistor for high-side driver 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GH3", "TLE9872-2QTW40.GH3"], "evidence": {"bbox": [600.0, 700.0, 620.0, 720.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "C_GH3", "type": "capacitor", "function": "Gate capacitor for high-side driver 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GH3", "R_GH3"], "evidence": {"bbox": [600.0, 730.0, 620.0, 750.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_SH3", "type": "resistor", "function": "Sense resistor for high-side driver 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GND", "SH3"], "evidence": {"bbox": [600.0, 760.0, 620.0, 780.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_GL1", "type": "resistor", "function": "Gate resistor for low-side driver 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL1", "TLE9872-2QTW40.GL1"], "evidence": {"bbox": [700.0, 500.0, 720.0, 520.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_GL1", "type": "capacitor", "function": "Gate capacitor for low-side driver 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL1", "R_GL1"], "evidence": {"bbox": [700.0, 530.0, 720.0, 550.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_GL2", "type": "resistor", "function": "Gate resistor for low-side driver 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL2", "TLE9872-2QTW40.GL2"], "evidence": {"bbox": [700.0, 600.0, 720.0, 620.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_GL2", "type": "capacitor", "function": "Gate capacitor for low-side driver 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL2", "R_GL2"], "evidence": {"bbox": [700.0, 630.0, 720.0, 650.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_GL3", "type": "resistor", "function": "Gate resistor for low-side driver 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["C_GL3", "TLE9872-2QTW40.GL3"], "evidence": {"bbox": [700.0, 700.0, 720.0, 720.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "C_GL3", "type": "capacitor", "function": "Gate capacitor for low-side driver 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GL3", "R_GL3"], "evidence": {"bbox": [700.0, 730.0, 720.0, 750.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_SL", "type": "resistor", "function": "Sense resistor for low-side drivers", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["GND", "SL"], "evidence": {"bbox": [700.0, 780.0, 720.0, 800.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_OP1", "type": "resistor", "function": "Operational amplifier input resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["OP1", "TLE9872-2QTW40.OP1"], "evidence": {"bbox": [700.0, 850.0, 720.0, 870.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "R_OP2", "type": "resistor", "function": "Operational amplifier feedback resistor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": ["OP2", "TLE9872-2QTW40.OP2"], "evidence": {"bbox": [700.0, 820.0, 720.0, 840.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "TLE9872-2QTW40", "type": "integrated_circuit", "function": "BLDC motor control IC", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [300.0, 300.0, 600.0, 800.0], "model_confidence": 0.99}, "geometry_verified": true}, {"label": "TLE5009", "type": "integrated_circuit", "function": "Hall sensor IC", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [200.0, 400.0, 300.0, 500.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "M", "type": "motor", "function": "3-phase BLDC motor", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [1000.0, 600.0, 1100.0, 700.0], "model_confidence": 0.95}, "geometry_verified": true}, {"label": "T1", "type": "transistor", "function": "High-side power MOSFET 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [800.0, 500.0, 850.0, 550.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "T2", "type": "transistor", "function": "High-side power MOSFET 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [800.0, 600.0, 850.0, 650.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "T3", "type": "transistor", "function": "High-side power MOSFET 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [800.0, 700.0, 850.0, 750.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "T4", "type": "transistor", "function": "Low-side power MOSFET 1", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [900.0, 500.0, 950.0, 550.0], "model_confidence": 0.9}, "geometry_verified": false}, {"label": "T5", "type": "transistor", "function": "Low-side power MOSFET 2", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [900.0, 600.0, 950.0, 650.0], "model_confidence": 0.9}, "geometry_verified": true}, {"label": "T6", "type": "transistor", "function": "Low-side power MOSFET 3", "value": null, "hdg_function": null, "hdg_component_typical": null, "hdg_symbol_raw": null, "hdg_matched": false, "nodes": [], "evidence": {"bbox": [900.0, 700.0, 950.0, 750.0], "model_confidence": 0.9}, "geometry_verified": true}], "nodes": [{"name": "VBAT", "description": "Battery supply voltage input", "evidence": null}, {"name": "VS", "description": "Supply voltage after reverse polarity protection", "evidence": null}, {"name": "VDDP", "description": "Pre-regulator supply voltage", "evidence": null}, {"name": "VDDC", "description": "Core supply voltage", "evidence": null}, {"name": "VDDEXT", "description": "External voltage regulator output", "evidence": null}, {"name": "GND", "description": "Ground reference", "evidence": null}, {"name": "GND_LIN", "description": "LIN bus ground reference", "evidence": null}, {"name": "GND_REF", "description": "Voltage reference ground (not connected to board GND)", "evidence": null}, {"name": "LIN", "description": "LIN bus communication line", "evidence": null}, {"name": "IGN", "description": "Ignition input signal", "evidence": null}, {"name": "MON", "description": "Monitor pin for diagnostics", "evidence": null}, {"name": "VAREF", "description": "Analog voltage reference", "evidence": null}, {"name": "P2.0/ADC3_P", "description": "General purpose I/O pin with ADC input", "evidence": null}, {"name": "P2.2/ADC3_N", "description": "General purpose I/O pin with ADC input", "evidence": null}, {"name": "P2.4/ADC4_P", "description": "General purpose I/O pin with ADC input", "evidence": null}, {"name": "P2.5/ADC4_N", "description": "General purpose I/O pin with ADC input", "evidence": null}, {"name": "P2.3", "description": "General purpose I/O pin", "evidence": null}, {"name": "P0.3", "description": "General purpose I/O pin", "evidence": null}, {"name": "P0.2", "description": "General purpose I/O pin", "evidence": null}, {"name": "P0.1", "description": "General purpose I/O pin", "evidence": null}, {"name": "P0.4", "description": "General purpose I/O pin", "evidence": null}, {"name": "P1.4", "description": "General purpose I/O pin", "evidence": null}, {"name": "P1.3", "description": "General purpose I/O pin", "evidence": null}, {"name": "P1.2", "description": "General purpose I/O pin", "evidence": null}, {"name": "P1.1", "description": "General purpose I/O pin", "evidence": null}, {"name": "P1.0", "description": "General purpose I/O pin", "evidence": null}, {"name": "RESET", "description": "Reset input pin", "evidence": null}, {"name": "TMS", "description": "JTAG test mode select", "evidence": null}, {"name": "P0.0", "description": "General purpose I/O pin / debug connector", "evidence": null}, {"name": "CP1H", "description": "Charge pump high-side capacitor connection", "evidence": null}, {"name": "CP1L", "description": "Charge pump low-side capacitor connection", "evidence": null}, {"name": "CP2H", "description": "Charge pump high-side capacitor connection", "evidence": null}, {"name": "CP2L", "description": "Charge pump low-side capacitor connection", "evidence": null}, {"name": "VCP", "description": "Charge pump voltage node", "evidence": null}, {"name": "VSD", "description": "Voltage sense input", "evidence": null}, {"name": "VDH", "description": "High-side driver supply voltage", "evidence": null}, {"name": "GH1", "description": "High-side gate driver output 1", "evidence": null}, {"name": "SH1", "description": "High-side source/sense node 1", "evidence": null}, {"name": "GH2", "description": "High-side gate driver output 2", "evidence": null}, {"name": "SH2", "description": "High-side source/sense node 2", "evidence": null}, {"name": "GH3", "description": "High-side gate driver output 3", "evidence": null}, {"name": "SH3", "description": "High-side source/sense node 3", "evidence": null}, {"name": "GL1", "description": "Low-side gate driver output 1", "evidence": null}, {"name": "SL", "description": "Low-side source/sense node", "evidence": null}, {"name": "GL2", "description": "Low-side gate driver output 2", "evidence": null}, {"name": "GL3", "description": "Low-side gate driver output 3", "evidence": null}, {"name": "OP1", "description": "Operational amplifier input 1", "evidence": null}, {"name": "OP2", "description": "Operational amplifier input 2", "evidence": null}], "connections": [{"source": "VBAT", "target": "L_VS", "relationship": "supplies", "confidence": 0.8, "evidence": null}, {"source": "L_VS", "target": "C_VS1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "L_VS", "target": "C_VS2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VS1", "target": "VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "C_VS2", "target": "VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VS", "target": "D_VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "D_VS", "target": "VDDP", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDP", "target": "C_OVS", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "VDDP", "target": "VDDC", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDC", "target": "C_VDD", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "VDDC", "target": "R_VDD", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDD", "target": "TLE9872-2QTW40.VDD", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VDDC", "target": "TLE9872-2QTW40.VDDP", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "VS", "target": "TLE9872-2QTW40.VS", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "IGN", "target": "TLE9872-2QTW40.IGN", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "LIN", "target": "C_LIN", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_LIN", "target": "TLE9872-2QTW40.LIN", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GND_LIN", "target": "GND_LIN", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.VAREF", "target": "C_VAREF", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VAREF", "target": "GND_REF", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.VDDEXT", "target": "C_VDDEXT", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDDEXT", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.MON", "target": "R_MON", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_MON", "target": "C_MON", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_MON", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.P2.0/ADC3_P", "target": "TLE5009.P2.0", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.P2.2/ADC3_N", "target": "TLE5009.P2.2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.P2.4/ADC4_P", "target": "TLE5009.P2.4", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.P2.5/ADC4_N", "target": "TLE5009.P2.5", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.P2.3", "target": "TLE5009.P2.3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE5009.GND", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.VCP", "target": "C_VCP", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VCP", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.CP1H", "target": "C_CP1H", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.CP1L", "target": "C_CP1L", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.CP2H", "target": "C_CP2H", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.CP2L", "target": "C_CP2L", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.VSD", "target": "R_VSD", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VSD", "target": "C_VSD", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VSD", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.VDH", "target": "R_VDH", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_VDH", "target": "C_VDH", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_VDH", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GH1", "target": "R_GH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH1", "target": "C_GH1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH1", "target": "GH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH1", "target": "T1.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T1.S", "target": "SH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH1", "target": "R_SH1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH1", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GH2", "target": "R_GH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH2", "target": "C_GH2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH2", "target": "GH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH2", "target": "T2.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T2.S", "target": "SH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH2", "target": "R_SH2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH2", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GH3", "target": "R_GH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GH3", "target": "C_GH3", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GH3", "target": "GH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GH3", "target": "T3.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T3.S", "target": "SH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SH3", "target": "R_SH3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SH3", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GL1", "target": "R_GL1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL1", "target": "C_GL1", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL1", "target": "GL1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL1", "target": "T4.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T4.S", "target": "SL", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GL2", "target": "R_GL2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL2", "target": "C_GL2", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL2", "target": "GL2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL2", "target": "T5.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T5.S", "target": "SL", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.GL3", "target": "R_GL3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_GL3", "target": "C_GL3", "relationship": "connected_between", "confidence": 0.8, "evidence": null}, {"source": "C_GL3", "target": "GL3", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "GL3", "target": "T6.G", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T6.S", "target": "SL", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "SL", "target": "R_SL", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_SL", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.OP1", "target": "R_OP1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_OP1", "target": "OP1", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "TLE9872-2QTW40.OP2", "target": "R_OP2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "R_OP2", "target": "OP2", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T1.D", "target": "M.U", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T2.D", "target": "M.V", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T3.D", "target": "M.W", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T4.D", "target": "M.U", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T5.D", "target": "M.V", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "T6.D", "target": "M.W", "relationship": "connected_to", "confidence": 0.8, "evidence": null}, {"source": "M.GND", "target": "GND", "relationship": "connected_to", "confidence": 0.8, "evidence": null}], "uncertainties": [{"description": "The exact values of all capacitors and resistors are not visible in the schematic.", "related_objects": []}, {"description": "The internal connections between the TLE9872-2QTW40 IC pins and internal blocks are not detailed in the schematic.", "related_objects": []}, {"description": "The exact function of some pins (e.g., COS, CSN, VGM) is not clear from the visible labels alone.", "related_objects": []}, {"description": "The connection between the TLE5009 Hall sensor and the motor phases is not explicitly shown in the schematic.", "related_objects": []}, {"description": "Component 'C_MON' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["C_MON"]}, {"description": "Component 'R_MON' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_MON"]}, {"description": "Component 'C_LIN' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["C_LIN"]}, {"description": "Component 'C_VAREF' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["C_VAREF"]}, {"description": "Component 'R_GH1' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_GH1"]}, {"description": "Component 'C_GH1' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["C_GH1"]}, {"description": "Component 'R_SH1' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_SH1"]}, {"description": "Component 'R_GH2' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_GH2"]}, {"description": "Component 'C_GH2' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["C_GH2"]}, {"description": "Component 'R_SH2' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_SH2"]}, {"description": "Component 'R_GH3' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["R_GH3"]}, {"description": "Component 'T4' bounding box has no detected wire nearby — bbox may be misplaced.", "related_objects": ["T4"]}]},
+                image: "../figures/fig_3_application_schemati.png"
+            }
+        };
+
+        let currentKey = "tle987x";
+        let activeComponent = null;
+
+        // Elements
+        const select = document.getElementById("schematic-select");
+        const searchInput = document.getElementById("search-input");
+        const showBBoxesToggle = document.getElementById("show-bboxes-toggle");
+        const compCountText = document.getElementById("comp-count");
+        const componentList = document.getElementById("component-list");
+        const img = document.getElementById("schematic-image");
+        const overlayContainer = document.getElementById("overlay-container");
+        const imageWrapper = document.getElementById("image-wrapper");
+
+        // View Mode buttons
+        const viewModeVisual = document.getElementById("view-mode-visual");
+        const viewModeTable = document.getElementById("view-mode-table");
+        const visualModeContainer = document.getElementById("visual-mode-container");
+        const tableModeContainer = document.getElementById("table-mode-container");
+        const tableViewBody = document.getElementById("table-view-body");
+
+        // Inspector elements
+        const inspectorPlaceholder = document.getElementById("inspector-placeholder");
+        const inspectorContent = document.getElementById("inspector-content");
+        const inspectLabel = document.getElementById("inspect-label");
+        const inspectType = document.getElementById("inspect-type");
+        const inspectValue = document.getElementById("inspect-value");
+        const inspectFunction = document.getElementById("inspect-function");
+        const inspectHdgSymbol = document.getElementById("inspect-hdg-symbol");
+        const inspectHdgTypical = document.getElementById("inspect-hdg-typical");
+        const inspectHdgFunction = document.getElementById("inspect-hdg-function");
+        const inspectNodes = document.getElementById("inspect-nodes");
+        const inspectorVerifiedTag = document.getElementById("inspector-verified-tag");
+        const hdgMatchedArea = document.getElementById("hdg-matched-area");
+        const hdgUnmatchedArea = document.getElementById("hdg-unmatched-area");
+        const inspectBboxCoords = document.getElementById("inspect-bbox-coords");
+
+        // Initialize
+        function init() {
+            select.addEventListener("change", (e) => {
+                currentKey = e.target.value;
+                loadSchematic(currentKey);
+            });
+
+            searchInput.addEventListener("input", filterAndRenderList);
+            showBBoxesToggle.addEventListener("change", () => {
+                overlayContainer.style.display = showBBoxesToggle.checked ? "block" : "none";
+            });
+
+            // View modes toggles
+            viewModeVisual.addEventListener("click", () => {
+                viewModeVisual.className = "px-4 py-1.5 rounded-md text-xs font-semibold bg-blue-600 text-white transition-all shadow-sm";
+                viewModeTable.className = "px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                visualModeContainer.classList.remove("hidden");
+                tableModeContainer.classList.add("hidden");
+            });
+
+            viewModeTable.addEventListener("click", () => {
+                viewModeTable.className = "px-4 py-1.5 rounded-md text-xs font-semibold bg-blue-600 text-white transition-all shadow-sm";
+                viewModeVisual.className = "px-4 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                visualModeContainer.classList.add("hidden");
+                tableModeContainer.classList.remove("hidden");
+                renderTableView();
+            });
+
+            loadSchematic(currentKey);
+        }
+
+        function loadSchematic(key) {
+            const schema = schematics[key];
+            img.src = schema.image;
+            activeComponent = null;
+            hideInspector();
+
+            img.onload = () => {
+                const originalWidth = schema.data.width;
+                const originalHeight = schema.data.height;
+
+                imageWrapper.style.width = originalWidth + "px";
+                imageWrapper.style.height = originalHeight + "px";
+
+                renderBBoxes();
+                filterAndRenderList();
+                renderTableView();
+            };
+        }
+
+        function renderBBoxes() {
+            overlayContainer.innerHTML = "";
+            const schema = schematics[currentKey].data;
+
+            schema.components.forEach((comp, idx) => {
+                const ev = comp.evidence;
+                if (!ev || !ev.bbox || ev.bbox.length !== 4) return;
+
+                const [x1, y1, x2, y2] = ev.bbox;
+                const w = x2 - x1;
+                const h = y2 - y1;
+
+                const box = document.createElement("div");
+                box.className = "bbox-overlay";
+                if (comp.geometry_verified) {
+                    box.classList.add("verified");
+                }
+                box.id = `box-${idx}`;
+                box.style.left = `${x1}px`;
+                box.style.top = `${y1}px`;
+                box.style.width = `${w}px`;
+                box.style.height = `${h}px`;
+
+                box.title = `${comp.label || comp.type}`;
+
+                // Hover events
+                box.addEventListener("mouseenter", () => {
+                    highlightBox(idx);
+                });
+                box.addEventListener("mouseleave", () => {
+                    if (activeComponent !== comp) {
+                        unhighlightBox(idx);
+                    }
+                });
+
+                // Click event
+                box.addEventListener("click", () => {
+                    selectComponent(comp, idx);
+                });
+
+                overlayContainer.appendChild(box);
+            });
+            overlayContainer.style.display = showBBoxesToggle.checked ? "block" : "none";
+        }
+
+        function filterAndRenderList() {
+            const schema = schematics[currentKey].data;
+            const search = searchInput.value.toLowerCase().trim();
+
+            componentList.innerHTML = "";
+
+            const filtered = schema.components.filter(comp => {
+                return !search || 
+                    (comp.label && comp.label.toLowerCase().includes(search)) ||
+                    (comp.type && comp.type.toLowerCase().includes(search)) ||
+                    (comp.function && comp.function.toLowerCase().includes(search));
+            });
+
+            compCountText.textContent = `${filtered.length} components`;
+
+            filtered.forEach(comp => {
+                const schemaIdx = schema.components.indexOf(comp);
+                const item = document.createElement("div");
+                item.className = "p-3 hover:bg-slate-50 cursor-pointer flex flex-col space-y-1 transition-colors";
+                
+                let verifiedBadge = comp.geometry_verified 
+                    ? `<span class="px-1.5 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded">Verified</span>` 
+                    : "";
+                
+                let typeBadge = `<span class="px-1.5 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-600 rounded capitalize">${comp.type}</span>`;
+                
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sm text-slate-800">${comp.label || 'Unnamed'}</span>
+                        <div class="flex space-x-1">${verifiedBadge}${typeBadge}</div>
+                    </div>
+                    ${comp.function ? `<p class="text-xs text-slate-500 truncate">${comp.function}</p>` : ""}
+                `;
+
+                item.addEventListener("mouseenter", () => {
+                    highlightBox(schemaIdx);
+                });
+                item.addEventListener("mouseleave", () => {
+                    if (activeComponent !== comp) {
+                        unhighlightBox(schemaIdx);
+                    }
+                });
+                item.addEventListener("click", () => {
+                    selectComponent(comp, schemaIdx);
+                    scrollToBox(schemaIdx);
+                });
+
+                componentList.appendChild(item);
+            });
+        }
+
+        function renderTableView() {
+            tableViewBody.innerHTML = "";
+            const schema = schematics[currentKey].data;
+
+            schema.components.forEach(comp => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-slate-50";
+
+                const labelCell = `<td class="p-3 font-bold text-slate-900">${comp.label || 'Unnamed'}</td>`;
+                const typeCell = `<td class="p-3 capitalize"><span class="px-2 py-0.5 text-xs bg-slate-100 rounded text-slate-700">${comp.type || '-'}</span></td>`;
+                const valueCell = `<td class="p-3">${comp.value || '<span class="text-slate-400 italic">Unknown</span>'}</td>`;
+                const funcCell = `<td class="p-3 text-slate-600 text-xs max-w-xs truncate" title="${comp.function || ''}">${comp.function || '-'}</td>`;
+                
+                let hdgTypical = "-";
+                let hdgFunc = "-";
+                if (comp.hdg_matched) {
+                    hdgTypical = `<span class="font-semibold text-blue-700">${comp.hdg_component_typical || ''}</span>`;
+                    hdgFunc = `<span class="text-xs text-slate-700">${comp.hdg_function || ''}</span>`;
+                } else {
+                    hdgTypical = `<span class="text-slate-400 italic">Unmatched</span>`;
+                }
+
+                let nodesStr = "-";
+                if (comp.nodes && comp.nodes.length > 0) {
+                    nodesStr = comp.nodes.map(n => `<code class="bg-blue-50 px-1 py-0.5 text-xs text-blue-800 rounded font-mono">${n}</code>`).join(" ");
+                }
+
+                tr.innerHTML = `
+                    ${labelCell}
+                    ${typeCell}
+                    ${valueCell}
+                    ${funcCell}
+                    <td class="p-3">${hdgTypical}</td>
+                    <td class="p-3 max-w-sm">${hdgFunc}</td>
+                    <td class="p-3">${nodesStr}</td>
+                `;
+                tableViewBody.appendChild(tr);
+            });
+        }
+
+        function highlightBox(idx) {
+            const box = document.getElementById(`box-${idx}`);
+            if (box) box.classList.add("active");
+        }
+
+        function unhighlightBox(idx) {
+            const box = document.getElementById(`box-${idx}`);
+            if (box) box.classList.remove("active");
+        }
+
+        function scrollToBox(idx) {
+            const box = document.getElementById(`box-${idx}`);
+            if (box) {
+                box.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+            }
+        }
+
+        function selectComponent(comp, idx) {
+            const allBoxes = document.querySelectorAll(".bbox-overlay");
+            allBoxes.forEach(b => b.classList.remove("active"));
+
+            activeComponent = comp;
+            highlightBox(idx);
+            showInspector(comp);
+        }
+
+        function showInspector(comp) {
+            inspectorPlaceholder.classList.add("hidden");
+            inspectorContent.classList.remove("hidden");
+
+            inspectLabel.textContent = comp.label || "Unnamed Component";
+            inspectType.textContent = comp.type || "-";
+            inspectValue.textContent = comp.value || "Not Visible / Unknown";
+            inspectFunction.textContent = comp.function || "No functional description extracted.";
+            
+            if (comp.geometry_verified) {
+                inspectorVerifiedTag.classList.remove("hidden");
+            } else {
+                inspectorVerifiedTag.classList.add("hidden");
+            }
+
+            // Render HDG Spec
+            if (comp.hdg_matched) {
+                hdgMatchedArea.classList.remove("hidden");
+                hdgUnmatchedArea.classList.add("hidden");
+                inspectHdgSymbol.textContent = comp.hdg_symbol_raw || comp.label;
+                inspectHdgTypical.textContent = comp.hdg_component_typical || "-";
+                inspectHdgFunction.textContent = comp.hdg_function || "-";
+            } else {
+                hdgMatchedArea.classList.add("hidden");
+                hdgUnmatchedArea.classList.remove("hidden");
+            }
+
+            // Render Nodes
+            inspectNodes.innerHTML = "";
+            if (comp.nodes && comp.nodes.length > 0) {
+                comp.nodes.forEach(n => {
+                    const pill = document.createElement("span");
+                    pill.className = "px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded font-mono";
+                    pill.textContent = n;
+                    inspectNodes.appendChild(pill);
+                });
+            } else {
+                const empty = document.createElement("span");
+                empty.className = "text-xs text-slate-400 italic";
+                empty.textContent = "No connections mapped";
+                inspectNodes.appendChild(empty);
+            }
+
+            // Render Coordinates
+            if (comp.evidence && comp.evidence.bbox) {
+                inspectBboxCoords.textContent = `[${comp.evidence.bbox.join(", ")}]`;
+            } else {
+                inspectBboxCoords.textContent = "No coordinate mapping";
+            }
+        }
+
+        function hideInspector() {
+            inspectorPlaceholder.classList.remove("hidden");
+            inspectorContent.classList.add("hidden");
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

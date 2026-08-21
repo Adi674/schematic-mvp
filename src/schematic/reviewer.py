@@ -17,6 +17,11 @@ from src.schematic.section_identifier import SectionIdentifier
 from src.schematic.checklist import ChecklistEngine
 from src.schematic.reference_verifier import ReferenceVerifier
 from src.schematic.semantic_extractor import SemanticSchematicExtractor
+from src.schematic.net_resolution import load_pin_index
+from src.schematic.explain_service import explain_schematic
+from src.schematic.explain_schema import ExplainCropResponse
+
+_PINOUT_MAP_PATH = "data/pinout_map/tle987x_pinout.json"
 
 
 class SchematicReviewService:
@@ -41,11 +46,16 @@ class SchematicReviewService:
         extractor=None,
         identifier=None,
         checklist_engine=None,
-        verifier=None
+        verifier=None,
+        retriever=None,        # new
+        pin_index=None,
     ):
         self.semantic_extractor = (
             semantic_extractor or SemanticSchematicExtractor()
         )
+
+        self.retriever = retriever
+        self._pin_index = pin_index
 
         self.extractor = extractor
         self.identifier = identifier
@@ -53,6 +63,11 @@ class SchematicReviewService:
         self.verifier = verifier
 
         self._reviews = {}
+
+    def _get_pin_index(self):   # new method
+        if self._pin_index is None:
+            self._pin_index = load_pin_index(_PINOUT_MAP_PATH)
+        return self._pin_index
 
     # def parse_crop(
     #     self,
@@ -162,4 +177,18 @@ class SchematicReviewService:
             selected_section=selected_section,
             findings=findings,
             summary_status=summary_status
+        )
+
+    def explain_crop(self, review_id: str) -> ExplainCropResponse:
+        if review_id not in self._reviews:
+            raise KeyError(f"Review session '{review_id}' not found.")
+
+        semantic = self._reviews[review_id]["semantic"]
+        pin_index = self._get_pin_index()
+
+        return explain_schematic(
+            semantic=semantic,
+            pin_index=pin_index,
+            retriever=self.retriever,
+            review_id=review_id,
         )
