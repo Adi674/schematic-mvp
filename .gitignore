@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+venv
+/tests
+.env.example
+aditya.tar
+ingestion_qa.tar
+scripts.tar
+src.tar

@@ -1,0 +1,3207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingestion Visual QA Report — TLE987x_6x</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; color: #333; }
+        h1 { color: #1a252f; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .meta-bar { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 25px; overflow: hidden; display: flex; flex-direction: row; }
+        .card-left { flex: 1; padding: 15px; border-right: 1px solid #eee; background: #fafafa; text-align: center; }
+        .card-left img { max-width: 100%; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .card-right { flex: 1; padding: 20px; overflow-x: auto; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; color: #fff; }
+        .badge-pass { background: #2ecc71; }
+        .badge-review { background: #f39c12; }
+        table.parsed-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+        table.parsed-table th, table.parsed-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        table.parsed-table th { background: #f2f4f7; }
+    </style>
+</head>
+<body>
+    <h1>Ingestion Visual QA Report</h1>
+    <div class="meta-bar">
+        <strong>Document:</strong> TLE987x/6x Hardware design guideline (TLE987x_6x Rev 1.1) |
+        <strong>Pages:</strong> 70 |
+        <strong>Hash:</strong> <code>53efe4c8619d6a79...</code>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 5)</h3>
+            <img src="crop_table_p5_0.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 1  TLE987x product family variants</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 5
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Product</th><th>Package</th><th>Flash</th><th>RAM</th><th>Max. operating
+frequency</th><th>Interfaces</th><th>T max.
+j</th></tr><tr><td><strong>Product:</strong> Product</td><td><strong>Package:</strong> Package</td><td><strong>Flash:</strong> Flash</td><td><strong>RAM:</strong> RAM</td><td><strong>Max. operating
+frequency:</strong> Max. operating
+frequency</td><td><strong>Interfaces:</strong> Interfaces</td><td><strong>T max.
+j:</strong> T max.
+j</td></tr><tr><td><strong>Product:</strong> TLE9871QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 36 kByte</td><td><strong>RAM:</strong> 3 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9873QXW40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 48 kByte</td><td><strong>RAM:</strong> 3 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9877QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9877QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9877QXW40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9877QTW40</td><td><strong>Package:</strong> TQFP-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9879QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9879-2QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9879QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9879QXW40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9879QTW40</td><td><strong>Package:</strong> TQFP-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9872-2QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 256 kByte</td><td><strong>RAM:</strong> 8 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9872QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 256 kByte</td><td><strong>RAM:</strong> 8 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9872QTW40</td><td><strong>Package:</strong> TQFP-48</td><td><strong>Flash:</strong> 256 kByte</td><td><strong>RAM:</strong> 8 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 5)</h3>
+            <img src="crop_table_p5_1.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 2  TLE986x product family variants</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 5
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Product</th><th>Package</th><th>Flash</th><th>RAM</th><th>Max. operating
+frequency</th><th>Interfaces</th><th>T max.
+j</th></tr><tr><td><strong>Product:</strong> Product</td><td><strong>Package:</strong> Package</td><td><strong>Flash:</strong> Flash</td><td><strong>RAM:</strong> RAM</td><td><strong>Max. operating
+frequency:</strong> Max. operating
+frequency</td><td><strong>Interfaces:</strong> Interfaces</td><td><strong>T max.
+j:</strong> T max.
+j</td></tr><tr><td><strong>Product:</strong> TLE9861QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 36 kByte</td><td><strong>RAM:</strong> 3 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9867QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9867QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9867QXW20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 64 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 175°C</td></tr><tr><td><strong>Product:</strong> TLE9868QXB20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 4 kByte</td><td><strong>Max. operating
+frequency:</strong> 20 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9869QXA20</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 128 kByte</td><td><strong>RAM:</strong> 6 kByte</td><td><strong>Max. operating
+frequency:</strong> 24 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr><tr><td><strong>Product:</strong> TLE9862QXA40</td><td><strong>Package:</strong> VQFN-48</td><td><strong>Flash:</strong> 256 kByte</td><td><strong>RAM:</strong> 8 kByte</td><td><strong>Max. operating
+frequency:</strong> 40 MHz</td><td><strong>Interfaces:</strong> PWM + LIN</td><td><strong>T max.
+j:</strong> 150°C</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_table_p6_2.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 6)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>CVDDP1</th></tr><tr><td><strong>col_0:</strong> </td><td><strong>CVDDP1:</strong> CVDDP1</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_table_p6_3.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 6)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>CVDDC1</th><th></th></tr><tr><td><strong>CVDDC1:</strong> CVDDC1</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_table_p6_4.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 6)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>C</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr><tr><td><strong>C:</strong> CVDH
+RGATE G
+RGS CGS
+CEM CP1
+RGATE
+CEM CP2
+RGATE</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> D
+TH1
+S</td><td><strong>col_3:</strong> CPH1
+G
+RGS CGS</td><td><strong>col_4:</strong> D
+TH2
+S</td><td><strong>col_5:</strong> CPH2
+G
+RGS CGS</td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> D
+TH3</td></tr><tr><td><strong>C:</strong> CEM CP3
+RGATE G
+RGS CGS
+RGATE
+RGATE</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> D
+TL1
+S</td><td><strong>col_3:</strong> G
+RGS CGS</td><td><strong>col_4:</strong> D
+TL2
+S</td><td><strong>col_5:</strong> G
+RGS CGS</td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> R ROPAFILT</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> C</td><td><strong>col_1:</strong> GATE
+OPAFILT RShunt
+R</td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_table_p6_5.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 6)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Debug connector</th><th></th><th></th></tr><tr><td><strong>Debug connector:</strong> Debug connector</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_table_p7_6.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 7)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>CVDDP1</th></tr><tr><td><strong>col_0:</strong> </td><td><strong>CVDDP1:</strong> CVDDP1</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_table_p7_7.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 7)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>CVDDC1</th><th></th></tr><tr><td><strong>CVDDC1:</strong> CVDDC1</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_table_p7_8.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 7)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>C</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr><tr><td><strong>C:</strong> CVDH
+RGATE G
+RGS CGS
+CEM CP1
+RGATE
+CEM CP2
+RGATE</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> D
+TH1
+S</td><td><strong>col_3:</strong> CPH1
+G
+RGS CGS</td><td><strong>col_4:</strong> D
+TH2
+S</td><td><strong>col_5:</strong> CPH2
+G
+RGS CGS</td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> D
+TH3</td></tr><tr><td><strong>C:</strong> CEM CP3
+RGATE G
+RGS CGS
+RGATE
+RGATE</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> D
+TL1
+S</td><td><strong>col_3:</strong> G
+RGS CGS</td><td><strong>col_4:</strong> D
+TL2
+S</td><td><strong>col_5:</strong> G
+RGS CGS</td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> R ROPAFILT</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr><tr><td><strong>C:</strong> C</td><td><strong>col_1:</strong> GATE
+OPAFILT RShunt
+R</td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td><td><strong>col_5:</strong> </td><td><strong>col_6:</strong> </td><td><strong>col_7:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_table_p7_9.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 7)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Debug Connector</th><th></th><th></th></tr><tr><td><strong>Debug Connector:</strong> Debug Connector</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_table_p7_10.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 3  External components (BOM)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Component (typical)</th></tr><tr><td><strong>Symbol:</strong> Symbol</td><td><strong>Function:</strong> Function</td><td><strong>Component (typical):</strong> Component (typical)</td></tr><tr><td><strong>Symbol:</strong> C
+VS1</td><td><strong>Function:</strong> Filter capacitor at VS pin (TLE987x supply)</td><td><strong>Component (typical):</strong> ≥ 100 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VS2</td><td><strong>Function:</strong> Bulk capacitor at VS pin (TLE987x supply)</td><td><strong>Component (typical):</strong> > 2.2 μF</td></tr><tr><td><strong>Symbol:</strong> C
+VDDP</td><td><strong>Function:</strong> Output capacitor at VDDP pin (voltage regulator)</td><td><strong>Component (typical):</strong> 470 nF + 100 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VDD EXT
+_</td><td><strong>Function:</strong> Output capacitor at VDD EXT pin (voltage regulator)
+_</td><td><strong>Component (typical):</strong> 100 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VDDC</td><td><strong>Function:</strong> Output capacitor at VDDC pin (voltage regulator)</td><td><strong>Component (typical):</strong> 470 nF + 100 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VAREF</td><td><strong>Function:</strong> Filter capacitor at VAREF pin (analog reference)</td><td><strong>Component (typical):</strong> 100 nF</td></tr><tr><td><strong>Symbol:</strong> C
+LIN</td><td><strong>Function:</strong> Filter capacitor at LIN pin</td><td><strong>Component (typical):</strong> 220 pF</td></tr><tr><td><strong>Symbol:</strong> C
+VSD</td><td><strong>Function:</strong> Filter capacitor at VSD pin (charge pump supply)</td><td><strong>Component (typical):</strong> 1 μF</td></tr><tr><td><strong>Symbol:</strong> C
+CPS1</td><td><strong>Function:</strong> Charge pump capacitor (first stage flying capacitor)</td><td><strong>Component (typical):</strong> 220 nF</td></tr><tr><td><strong>Symbol:</strong> C
+CPS2</td><td><strong>Function:</strong> Charge pump capacitor (second stage flying capacitor)</td><td><strong>Component (typical):</strong> 220 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VCP</td><td><strong>Function:</strong> Charge pump capacitor (output bulk capacitor)</td><td><strong>Component (typical):</strong> 470 nF</td></tr><tr><td><strong>Symbol:</strong> C
+MON</td><td><strong>Function:</strong> Filter capacitor at MON pin (high-voltage monitor input)</td><td><strong>Component (typical):</strong> 10 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VDH</td><td><strong>Function:</strong> Filter capacitor at VDH pin (drain high-side MOSFET driver)</td><td><strong>Component (typical):</strong> 3.3 nF</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 8)</h3>
+            <img src="crop_table_p8_11.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 8)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 8
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Component (typical)</th></tr><tr><td><strong>Symbol:</strong> Symbol</td><td><strong>Function:</strong> Function</td><td><strong>Component (typical):</strong> Component (typical)</td></tr><tr><td><strong>Symbol:</strong> C
+PH1</td><td><strong>Function:</strong> Bulk capacitor at drain high-side FET (phase U)</td><td><strong>Component (typical):</strong> 220 μF</td></tr><tr><td><strong>Symbol:</strong> C
+PH2</td><td><strong>Function:</strong> Bulk capacitor at drain high-side FET (phase V)</td><td><strong>Component (typical):</strong> 220 μF</td></tr><tr><td><strong>Symbol:</strong> C
+PH3</td><td><strong>Function:</strong> Bulk capacitor at drain high-side FET (phase W)</td><td><strong>Component (typical):</strong> 220 μF</td></tr><tr><td><strong>Symbol:</strong> C
+OPAFILT</td><td><strong>Function:</strong> Filter capacitor at OP1 and OP2 pins (CSA inputs)</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> C
+EMCP1</td><td><strong>Function:</strong> Filter capacitor at SH1 pin (source high-side FET 1)</td><td><strong>Component (typical):</strong> 1 nF</td></tr><tr><td><strong>Symbol:</strong> C
+EMCP2</td><td><strong>Function:</strong> Filter capacitor at SH2 pin (source high-side FET 2)</td><td><strong>Component (typical):</strong> 1 nF</td></tr><tr><td><strong>Symbol:</strong> C
+EMCP3</td><td><strong>Function:</strong> Filter capacitor at SH3 pin (source high-side FET 2)</td><td><strong>Component (typical):</strong> 1 nF</td></tr><tr><td><strong>Symbol:</strong> C , C
+PFILT1 PFILT2</td><td><strong>Function:</strong> Filter capacitors of the input π-filter</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> D
+VS</td><td><strong>Function:</strong> Reverse-polarity protection diode</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> L
+PFILT</td><td><strong>Function:</strong> Filter inductor of the input π-filter</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+MON</td><td><strong>Function:</strong> Filter resistor at MON pin</td><td><strong>Component (typical):</strong> 3.9 kΩ</td></tr><tr><td><strong>Symbol:</strong> R
+VSD</td><td><strong>Function:</strong> Filter resistor at VSD pin</td><td><strong>Component (typical):</strong> 2 Ω</td></tr><tr><td><strong>Symbol:</strong> R
+VDH</td><td><strong>Function:</strong> Filter resistor at VDH pin</td><td><strong>Component (typical):</strong> 1 kΩ</td></tr><tr><td><strong>Symbol:</strong> R
+GATE</td><td><strong>Function:</strong> FET gate resistor</td><td><strong>Component (typical):</strong> 2 Ω</td></tr><tr><td><strong>Symbol:</strong> R
+OPAFILT</td><td><strong>Function:</strong> Filter resistor at OP1 and OP2 pins (CSA inputs)</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+Shunt</td><td><strong>Function:</strong> Shunt resistor</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+GS</td><td><strong>Function:</strong> FET gate-source resistor</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> C
+GS</td><td><strong>Function:</strong> FET gate-source resistor</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+VDDPU</td><td><strong>Function:</strong> Pull-up resistor for Hall sensor</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+ADC</td><td><strong>Function:</strong> Filter resistor at ADC1 input</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> C
+ADC</td><td><strong>Function:</strong> Filter capacitor at ADC1 input</td><td><strong>Component (typical):</strong> Application related</td></tr><tr><td><strong>Symbol:</strong> R
+TMS</td><td><strong>Function:</strong> Pull-down resistor at TMS pin (test mode select)</td><td><strong>Component (typical):</strong> Optional</td></tr><tr><td><strong>Symbol:</strong> R / R
+SIN P SIN N
+_ _</td><td><strong>Function:</strong> Filter resistors at ADC3 input pins (sigma-delta version)</td><td><strong>Component (typical):</strong> 10 kΩ</td></tr><tr><td><strong>Symbol:</strong> R / R
+COS P COS N
+_ _</td><td><strong>Function:</strong> Filter resistors at ADC4 input pins (sigma-delta version)</td><td><strong>Component (typical):</strong> 10 kΩ</td></tr><tr><td><strong>Symbol:</strong> C / C
+SIN P SIN N
+_ _</td><td><strong>Function:</strong> Filter capacitors at ADC3 input pins (sigma-delta version)</td><td><strong>Component (typical):</strong> 68 nF</td></tr><tr><td><strong>Symbol:</strong> C / C
+COS P COS N
+_ _</td><td><strong>Function:</strong> Filter capacitors at ADC4 input pins (sigma-delta version)</td><td><strong>Component (typical):</strong> 68 nF</td></tr><tr><td><strong>Symbol:</strong> C
+VGMR</td><td><strong>Function:</strong> Filter capacitor at GPIO input pin (GMR bridge voltage)</td><td><strong>Component (typical):</strong> 4.7 nF</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 11)</h3>
+            <img src="crop_table_p11_12.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 4 Component selection for VS pin</h3>
+            <p>
+                <span class="badge badge-review">NEEDS_REVIEW</span>
+                <strong>Confidence:</strong> 50% |
+                <strong>Page:</strong> 11
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Table</th><th>4</th><th>Component</th><th>selection</th><th>for</th><th>VS</th><th>pin</th></tr><tr><td><strong>Table:</strong> Symbol</td><td><strong>4:</strong> Function</td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Recommended component</td></tr><tr><td><strong>Table:</strong> DVS</td><td><strong>4:</strong> Diode</td><td><strong>Component:</strong> for reverse</td><td><strong>selection:</strong> battery</td><td><strong>for:</strong> protection</td><td><strong>VS:</strong> </td><td><strong>pin:</strong> PN or Schottky diode</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Voltage and current ratings defined according to the</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> application</td></tr><tr><td><strong>Table:</strong> CVS1</td><td><strong>4:</strong> Filter</td><td><strong>Component:</strong> capacitor</td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Ceramic capacitor</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Min. value 100 nF type: X7R</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Voltage rating and dielectric type defined according</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> to the application</td></tr><tr><td><strong>Table:</strong> CVS2</td><td><strong>4:</strong> Bulk</td><td><strong>Component:</strong> capacitor</td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Electrolytic or ceramic capacitor</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Min. value 2.2 µF type: X7R</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> Value, voltage rating, and temperature defined</td></tr><tr><td><strong>Table:</strong> </td><td><strong>4:</strong> </td><td><strong>Component:</strong> </td><td><strong>selection:</strong> </td><td><strong>for:</strong> </td><td><strong>VS:</strong> </td><td><strong>pin:</strong> according to the application</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 11)</h3>
+            <img src="crop_table_p11_13.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: The IPRE current is shared between the VDDP and VDDEXT voltage regulators. The table summarizes the  maximum currents allowed for each voltage regulator.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 11
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Linear regulator</th><th>Maximum current</th></tr><tr><td><strong>Linear regulator:</strong> Linear regulator</td><td><strong>Maximum current:</strong> Maximum current</td></tr><tr><td><strong>Linear regulator:</strong> VPRE</td><td><strong>Maximum current:</strong> I = 110 mA
+PRE
+I = I + I
+PRE DDP DDEXT</td></tr><tr><td><strong>Linear regulator:</strong> VDDP</td><td><strong>Maximum current:</strong> I = 90 mA
+DDP
+I = 20 mA
+DDEXT</td></tr><tr><td><strong>Linear regulator:</strong> VDDEXT</td><td><strong>Maximum current:</strong> I = 40 mA
+DDEXT
+I = 70 mA
+DDP</td></tr><tr><td><strong>Linear regulator:</strong> VDDC</td><td><strong>Maximum current:</strong> I = 40 mA
+DDC</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 12)</h3>
+            <img src="crop_table_p12_14.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 5  Capacitor selection for VDDP</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 12
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Recommended component</th></tr><tr><td><strong>Symbol:</strong> C
+VDDP</td><td><strong>Function:</strong> Output capacitor at VDDP</td><td><strong>Recommended component:</strong> Ceramic capacitor
+Min. value: 470 nF + 1 µF (1.47 µF) type: X7R
+Max. value: 2.2 µF + 2.2 µF (4.4 µF) type: X7R
+Voltage rating: 10 V or higher
+Size and dielectric type defined according to the
+application</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 12)</h3>
+            <img src="crop_table_p12_15.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 6  Capacitor selection for VDDC</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 12
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Recommended Component</th></tr><tr><td><strong>Symbol:</strong> C
+VDDC</td><td><strong>Function:</strong> Output capacitor at VDDC</td><td><strong>Recommended Component:</strong> Ceramic capacitor
+Min. value: 100 nF + 330 nF (430 nF) type: X7R
+Max. value: 1 µF + 1 µF (2 µF) type: X7R
+Voltage rating: 4 V or higher
+Size and dielectric type defined according to the
+application</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 16)</h3>
+            <img src="crop_table_p16_16.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 16)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 16
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Recommended component</th></tr><tr><td><strong>Symbol:</strong> Symbol</td><td><strong>Function:</strong> Function</td><td><strong>Recommended component:</strong> Recommended component</td></tr><tr><td><strong>Symbol:</strong> C ,
+XTAL1
+C
+XTAL2</td><td><strong>Function:</strong> Load capacitors for external crystal
+oscillator forming an LC tank circuit
+which determines the oscillator
+frequency</td><td><strong>Recommended component:</strong> ≥ 10 V ceramic capacitor X7R/X8R
+(low ESR, 0805 package)</td></tr><tr><td><strong>Symbol:</strong> R
+XTAL2</td><td><strong>Function:</strong> Serial damping resistor</td><td><strong>Recommended component:</strong> 0-280 Ω</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 17)</h3>
+            <img src="crop_table_p17_17.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 8  Recommendation for oscillator load capacitors</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 17
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>4 MHz</th><th>8 MHz</th><th>12 MHz</th></tr><tr><td><strong>4 MHz:</strong> 4 MHz</td><td><strong>8 MHz:</strong> 8 MHz</td><td><strong>12 MHz:</strong> 12 MHz</td></tr><tr><td><strong>4 MHz:</strong> 120</td><td><strong>8 MHz:</strong> 90</td><td><strong>12 MHz:</strong> 80</td></tr><tr><td><strong>4 MHz:</strong> 3.5</td><td><strong>8 MHz:</strong> 3.5</td><td><strong>12 MHz:</strong> 3.5</td></tr><tr><td><strong>4 MHz:</strong> 3</td><td><strong>8 MHz:</strong> 3</td><td><strong>12 MHz:</strong> 3</td></tr><tr><td><strong>4 MHz:</strong> 33</td><td><strong>8 MHz:</strong> 18</td><td><strong>12 MHz:</strong> 12</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 17)</h3>
+            <img src="crop_table_p17_18.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 17)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 17
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th></th><th></th><th></th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> R
+XTAL2</td><td><strong>col_4:</strong> </td></tr><tr><td><strong>col_0:</strong> C
+XTAL1</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> C
+XTAL2</td><td><strong>col_4:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td><td><strong>col_4:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 19)</h3>
+            <img src="crop_table_p19_19.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 9  GPIO configuration settings</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 19
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>State</th><th>Px DIR.Pn
+_</th><th>Px DATA.Pn
+_</th><th>Px OD.Py
+_</th><th>Px PUDSEL.Py
+_</th><th>Px PUDEN.Py
+_</th><th>External HW</th></tr><tr><td><strong>State:</strong> State</td><td><strong>Px DIR.Pn
+_:</strong> Px DIR.Pn
+_</td><td><strong>Px DATA.Pn
+_:</strong> Px DATA.Pn
+_</td><td><strong>Px OD.Py
+_:</strong> Px OD.Py
+_</td><td><strong>Px PUDSEL.Py
+_:</strong> Px PUDSEL.Py
+_</td><td><strong>Px PUDEN.Py
+_:</strong> Px PUDEN.Py
+_</td><td><strong>External HW:</strong> External HW</td></tr><tr><td><strong>State:</strong> Push (optional
+pull-up device)</td><td><strong>Px DIR.Pn
+_:</strong> 1</td><td><strong>Px DATA.Pn
+_:</strong> 1</td><td><strong>Px OD.Py
+_:</strong> 0</td><td><strong>Px PUDSEL.Py
+_:</strong> 1</td><td><strong>Px PUDEN.Py
+_:</strong> optional: 1</td><td><strong>External HW:</strong> –</td></tr><tr><td><strong>State:</strong> Pull (optional
+pull-down device)</td><td><strong>Px DIR.Pn
+_:</strong> 1</td><td><strong>Px DATA.Pn
+_:</strong> 0</td><td><strong>Px OD.Py
+_:</strong> 0</td><td><strong>Px PUDSEL.Py
+_:</strong> 0</td><td><strong>Px PUDEN.Py
+_:</strong> optional: 1</td><td><strong>External HW:</strong> –</td></tr><tr><td><strong>State:</strong> OD with internal
+pull-up device</td><td><strong>Px DIR.Pn
+_:</strong> 1</td><td><strong>Px DATA.Pn
+_:</strong> 0</td><td><strong>Px OD.Py
+_:</strong> 1</td><td><strong>Px PUDSEL.Py
+_:</strong> 1</td><td><strong>Px PUDEN.Py
+_:</strong> 1</td><td><strong>External HW:</strong> –</td></tr><tr><td><strong>State:</strong> OD with external
+pull-up</td><td><strong>Px DIR.Pn
+_:</strong> 1</td><td><strong>Px DATA.Pn
+_:</strong> 0</td><td><strong>Px OD.Py
+_:</strong> 1</td><td><strong>Px PUDSEL.Py
+_:</strong> 0</td><td><strong>Px PUDEN.Py
+_:</strong> 0</td><td><strong>External HW:</strong> 10 kR</td></tr><tr><td><strong>State:</strong> Tristate</td><td><strong>Px DIR.Pn
+_:</strong> 0</td><td><strong>Px DATA.Pn
+_:</strong> Read for
+pin state</td><td><strong>Px OD.Py
+_:</strong> NA</td><td><strong>Px PUDSEL.Py
+_:</strong> 0</td><td><strong>Px PUDEN.Py
+_:</strong> 0</td><td><strong>External HW:</strong> –</td></tr><tr><td><strong>State:</strong> HI with weak
+pull-up
+termination</td><td><strong>Px DIR.Pn
+_:</strong> 0</td><td><strong>Px DATA.Pn
+_:</strong> Read for
+pin state</td><td><strong>Px OD.Py
+_:</strong> NA</td><td><strong>Px PUDSEL.Py
+_:</strong> 1</td><td><strong>Px PUDEN.Py
+_:</strong> 1</td><td><strong>External HW:</strong> –</td></tr><tr><td><strong>State:</strong> HI with weak pull-
+down termination</td><td><strong>Px DIR.Pn
+_:</strong> 0</td><td><strong>Px DATA.Pn
+_:</strong> Read for
+pin state</td><td><strong>Px OD.Py
+_:</strong> NA</td><td><strong>Px PUDSEL.Py
+_:</strong> 0</td><td><strong>Px PUDEN.Py
+_:</strong> 1</td><td><strong>External HW:</strong> –</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 20)</h3>
+            <img src="crop_table_p20_20.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 10  Resistor selection for GPIOs</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 20
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Recommended component</th></tr><tr><td><strong>Symbol:</strong> RPU</td><td><strong>Function:</strong> Pull-up for external pin termination</td><td><strong>Recommended component:</strong> 10 kΩ</td></tr><tr><td><strong>Symbol:</strong> RIO</td><td><strong>Function:</strong> Serial resistor for high accuracy
+high-speed communication</td><td><strong>Recommended component:</strong> Min: value 220 Ω
+Has to be assessed if needed in the application</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 22)</h3>
+            <img src="crop_table_p22_21.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 22)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 22
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>Filter</th></tr><tr><td><strong>col_0:</strong> </td><td><strong>Filter:</strong> Filter</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 22)</h3>
+            <img src="crop_table_p22_22.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 11  Component selection for the MON pin</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 22
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Symbol</th><th>Function</th><th>Recommended component</th></tr><tr><td><strong>Symbol:</strong> Symbol</td><td><strong>Function:</strong> Function</td><td><strong>Recommended component:</strong> Recommended component</td></tr><tr><td><strong>Symbol:</strong> R
+MON</td><td><strong>Function:</strong> Filter resistor</td><td><strong>Recommended component:</strong> Min. value 1 kΩ
+R value and size selected according the application,
+MON
+package 1206 SMD recommended</td></tr><tr><td><strong>Symbol:</strong> C
+MON</td><td><strong>Function:</strong> Filter capacitor</td><td><strong>Recommended component:</strong> Ceramic capacitor
+Min. value 10 nF, typical voltage rating 50 V
+C value, voltage rating, size, and dielectric type
+MON
+selected according to the application</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 23)</h3>
+            <img src="crop_table_p23_23.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 12  ADC1 channels</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 23
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Channel</th><th>Signal</th><th>Pin</th></tr><tr><td><strong>Channel:</strong> 0</td><td><strong>Signal:</strong> P2.0</td><td><strong>Pin:</strong> 29</td></tr><tr><td><strong>Channel:</strong> 1</td><td><strong>Signal:</strong> CSA</td><td><strong>Pin:</strong> Internal</td></tr><tr><td><strong>Channel:</strong> 2</td><td><strong>Signal:</strong> P2.2</td><td><strong>Pin:</strong> 30</td></tr><tr><td><strong>Channel:</strong> 3</td><td><strong>Signal:</strong> P2.3</td><td><strong>Pin:</strong> 35</td></tr><tr><td><strong>Channel:</strong> 4</td><td><strong>Signal:</strong> P2.4</td><td><strong>Pin:</strong> 32</td></tr><tr><td><strong>Channel:</strong> 5</td><td><strong>Signal:</strong> P2.5</td><td><strong>Pin:</strong> 31</td></tr><tr><td><strong>Channel:</strong> 6</td><td><strong>Signal:</strong> VDH</td><td><strong>Pin:</strong> Internal</td></tr><tr><td><strong>Channel:</strong> 7</td><td><strong>Signal:</strong> NC</td><td><strong>Pin:</strong> NA</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 24)</h3>
+            <img src="crop_table_p24_24.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 24)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 24
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>ATTVDH_2</th><th></th><th>ATTVDH_3</th></tr><tr><td><strong>ATTVDH_2:</strong> ATTVDH_2</td><td><strong>col_1:</strong> </td><td><strong>ATTVDH_3:</strong> ATTVDH_3</td></tr><tr><td><strong>ATTVDH_2:</strong> </td><td><strong>col_1:</strong> </td><td><strong>ATTVDH_3:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 26)</h3>
+            <img src="crop_table_p26_25.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 14  SDADC signals</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 26
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Signal</th><th>Pin</th></tr><tr><td><strong>Signal:</strong> ADC3.P</td><td><strong>Pin:</strong> 29</td></tr><tr><td><strong>Signal:</strong> ADC3.N</td><td><strong>Pin:</strong> 30</td></tr><tr><td><strong>Signal:</strong> ADC4.P</td><td><strong>Pin:</strong> 31</td></tr><tr><td><strong>Signal:</strong> ADC4.N</td><td><strong>Pin:</strong> 32</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 29)</h3>
+            <img src="crop_table_p29_26.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 29)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 29
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>CP</th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>CP:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>CP:</strong> High Side
+Driver</td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>CP:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>CP:</strong> RGGND</td><td><strong>col_2:</strong> RGS CGS</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 30)</h3>
+            <img src="crop_table_p30_27.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 30)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 30
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>9.2</th><th>External components</th><th></th></tr><tr><td><strong>9.2:</strong> Component</td><td><strong>External components:</strong> Short description</td><td><strong>col_2:</strong> Recommended value</td></tr><tr><td><strong>9.2:</strong> R
+GATE</td><td><strong>External components:</strong> Gate resistor (optional): suppresses potential oscillations between
+PCB line inductances and MOSFET capacitances</td><td><strong>col_2:</strong> 2 … 10 Ω</td></tr><tr><td><strong>9.2:</strong> R
+GS</td><td><strong>External components:</strong> Gate-to-source resistor: terminates the MOSFET gate</td><td><strong>col_2:</strong> 100 kΩ</td></tr><tr><td><strong>9.2:</strong> C
+GS</td><td><strong>External components:</strong> Gate-to-source capacitor (optional): linearizes the intrinsic
+MOSFET gate-to-source capacitor</td><td><strong>col_2:</strong> Depends on MOSFET</td></tr><tr><td><strong>9.2:</strong> C
+GD</td><td><strong>External components:</strong> Gate-to-drain capacitor (optional): linearizes the intrinsic MOSFET
+gate-to-drain capacitor</td><td><strong>col_2:</strong> </td></tr><tr><td><strong>9.2:</strong> C
+PHAx</td><td><strong>External components:</strong> DC link capacitor A: buffers DC link voltage</td><td><strong>col_2:</strong> Depends on
+application
+requirements</td></tr><tr><td><strong>9.2:</strong> C
+PHBx</td><td><strong>External components:</strong> DC link capacitor B: suppresses double-digit MHz oscillations</td><td><strong>col_2:</strong> </td></tr><tr><td><strong>9.2:</strong> R , C
+S S</td><td><strong>External components:</strong> Snubber (optional): reduces voltage peaks and ringing at motor pin</td><td><strong>col_2:</strong> </td></tr><tr><td><strong>9.2:</strong> C
+EMCPx</td><td><strong>External components:</strong> EMC filter capacitor at the SHx pin: suppresses fast transients
+at SHx</td><td><strong>col_2:</strong> 1 nF</td></tr><tr><td><strong>9.2:</strong> R , C
+VDH VDH</td><td><strong>External components:</strong> Low-pass filter at the VDH pin: suppresses high-frequency
+components of DC link voltage</td><td><strong>col_2:</strong> 1 kΩ, 1 … 3.3 nF</td></tr><tr><td><strong>9.2:</strong> D
+SH</td><td><strong>External components:</strong> Protection diode at the SHx pin (optional): limits SHx undershoot
+voltages</td><td><strong>col_2:</strong> –</td></tr><tr><td><strong>9.2:</strong> R
+SH</td><td><strong>External components:</strong> Source resistor at the SHx pin (optional): suppresses potential
+oscillations from motor phase to SHx pin and synchronizes the
+gate channel</td><td><strong>col_2:</strong> 2 … 10 Ω</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 34)</h3>
+            <img src="crop_table_p34_28.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 34)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 34
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>CCPS1</th></tr><tr><td><strong>col_0:</strong> </td><td><strong>CCPS1:</strong> CCPS1</td></tr><tr><td><strong>col_0:</strong> </td><td><strong>CCPS1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 37)</h3>
+            <img src="crop_table_p37_29.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 37)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 37
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th></th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> SL</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 39)</h3>
+            <img src="crop_table_p39_30.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 39)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 39
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>ICHHS
+VGS IDISHS
+clamp
+ICHLS
+VGS IDISLS
+clamp</th><th>VSD
+IGS
+GHx HSx
+HSx
+VGS
+HSx
+CGS
+ext
+SHx
+to the moto
+VPHx
+GLx IGS
+LSx
+LSx
+VGS
+LSx
+CGS
+ext
+VSL
+SL</th></tr><tr><td><strong>ICHHS
+VGS IDISHS
+clamp
+ICHLS
+VGS IDISLS
+clamp:</strong> ICHHS
+VGS IDISHS
+clamp
+ICHLS
+VGS IDISLS
+clamp</td><td><strong>VSD
+IGS
+GHx HSx
+HSx
+VGS
+HSx
+CGS
+ext
+SHx
+to the moto
+VPHx
+GLx IGS
+LSx
+LSx
+VGS
+LSx
+CGS
+ext
+VSL
+SL:</strong> VSD
+IGS
+GHx HSx
+HSx
+VGS
+HSx
+CGS
+ext
+SHx
+to the moto
+VPHx
+GLx IGS
+LSx
+LSx
+VGS
+LSx
+CGS
+ext
+VSL
+SL</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 39)</h3>
+            <img src="crop_table_p39_31.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 39)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 39
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th></th><th></th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> IDISHS</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> IDISLS</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 42)</h3>
+            <img src="crop_table_p42_32.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 42)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 42
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th>VCP-VSD</th><th>VGS
+HS</th><th>VGS
+LS</th></tr><tr><td><strong>col_0:</strong> </td><td><strong>VCP-VSD:</strong> VCP-VSD</td><td><strong>VGS
+HS:</strong> VGS
+HS</td><td><strong>VGS
+LS:</strong> VGS
+LS</td></tr><tr><td><strong>col_0:</strong> VSD = 18 V</td><td><strong>VCP-VSD:</strong> 14 V</td><td><strong>VGS
+HS:</strong> 12.5 V</td><td><strong>VGS
+LS:</strong> 12.5 V</td></tr><tr><td><strong>col_0:</strong> 12 V</td><td><strong>VCP-VSD:</strong> 14 V</td><td><strong>VGS
+HS:</strong> 12.5 V</td><td><strong>VGS
+LS:</strong> 12.5 V</td></tr><tr><td><strong>col_0:</strong> 10 V</td><td><strong>VCP-VSD:</strong> 14 V</td><td><strong>VGS
+HS:</strong> 12.5 V</td><td><strong>VGS
+LS:</strong> 12.5 V</td></tr><tr><td><strong>col_0:</strong> 8 V</td><td><strong>VCP-VSD:</strong> 13.8 V</td><td><strong>VGS
+HS:</strong> 12.3 V</td><td><strong>VGS
+LS:</strong> 12.5 V</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 47)</h3>
+            <img src="crop_table_p47_33.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 16  Typical values for gain settings</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 47
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Gain [V/V]</th><th>10</th><th>20</th><th>40</th><th>60</th></tr><tr><td><strong>Gain [V/V]:</strong> ω [Mrad/s]
+p</td><td><strong>10:</strong> 50</td><td><strong>20:</strong> 27</td><td><strong>40:</strong> 17</td><td><strong>60:</strong> 12</td></tr><tr><td><strong>Gain [V/V]:</strong> τ [ns]
+p</td><td><strong>10:</strong> 20</td><td><strong>20:</strong> 37</td><td><strong>40:</strong> 57</td><td><strong>60:</strong> 84</td></tr><tr><td><strong>Gain [V/V]:</strong> Settling time [ns]</td><td><strong>10:</strong> 185</td><td><strong>20:</strong> 330</td><td><strong>40:</strong> 520</td><td><strong>60:</strong> 760</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 48)</h3>
+            <img src="crop_table_p48_34.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 48)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 48
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 55)</h3>
+            <img src="crop_table_p55_35.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 55)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 55
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>XTAL</th><th></th></tr><tr><td><strong>XTAL:</strong> XTAL</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 55)</h3>
+            <img src="crop_table_p55_36.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 55)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 55
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>RXD
+UART1
+TXD</th><th></th></tr><tr><td><strong>RXD
+UART1
+TXD:</strong> RXD
+UART1
+TXD</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 55)</h3>
+            <img src="crop_table_p55_37.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 55)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 55
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>RXD
+UART
+TXD</th><th></th></tr><tr><td><strong>RXD
+UART
+TXD:</strong> RXD
+UART
+TXD</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 56)</h3>
+            <img src="crop_table_p56_38.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 56)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 56
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_</th><th></th><th></th><th></th></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr><tr><td><strong>SIN P
+_
+SIN N
+_
+TMR
+COS P
+_
+COS N
+_:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td><td><strong>col_3:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 59)</h3>
+            <img src="crop_table_p59_39.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 17  Connecting unused pins</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 59
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Type</th><th>Pin number</th><th>Recommendation 1
+(if unused)</th><th>Recommendation 2
+(if unused)</th></tr><tr><td><strong>Type:</strong> CP1L, CP2H,
+CP2L, CP1H</td><td><strong>Pin number:</strong> 1, 3, 4, 48</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> VCP</td><td><strong>Pin number:</strong> 2</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> GH3, GH2, GH1,
+GL3, GL2, GL1</td><td><strong>Pin number:</strong> 5, 7, 9, 11, 12, 13</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> SH2, SH1, SL,
+SH3</td><td><strong>Pin number:</strong> 6, 8, 10, 46</td><td><strong>Recommendation 1
+(if unused):</strong> GND</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> MON</td><td><strong>Pin number:</strong> 14</td><td><strong>Recommendation 1
+(if unused):</strong> GND analog/digital</td><td><strong>Recommendation 2
+(if unused):</strong> Open + configured
+internal PU/PD</td></tr><tr><td><strong>Type:</strong> GPIO</td><td><strong>Pin number:</strong> 15, 16, 17, 18, 21, 23,
+24, 25, 26, 27, 31, 32, 35</td><td><strong>Recommendation 1
+(if unused):</strong> GND analog/digital</td><td><strong>Recommendation 2
+(if unused):</strong> External PU/PD
+or
+Open + configured
+internal PU/PD</td></tr><tr><td><strong>Type:</strong> TMS</td><td><strong>Pin number:</strong> 20</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> RESET</td><td><strong>Pin number:</strong> 22</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> P2.0 / XTAL1</td><td><strong>Pin number:</strong> 29</td><td><strong>Recommendation 1
+(if unused):</strong> GND analog/digital</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> P2.2 / XTAL2</td><td><strong>Pin number:</strong> 30</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> VAREF</td><td><strong>Pin number:</strong> 34</td><td><strong>Recommendation 1
+(if unused):</strong> Open (VAREF disabled)</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> CSA</td><td><strong>Pin number:</strong> 36, 37</td><td><strong>Recommendation 1
+(if unused):</strong> Open (CSA disabled)</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> VDH</td><td><strong>Pin number:</strong> 44</td><td><strong>Recommendation 1
+(if unused):</strong> GND</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> VDDEXT</td><td><strong>Pin number:</strong> 45</td><td><strong>Recommendation 1
+(if unused):</strong> Open (VDDEXT disabled)</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr><tr><td><strong>Type:</strong> VSD</td><td><strong>Pin number:</strong> 47</td><td><strong>Recommendation 1
+(if unused):</strong> GND</td><td><strong>Recommendation 2
+(if unused):</strong> Connect to VS for
+monitoring purpose</td></tr><tr><td><strong>Type:</strong> LIN</td><td><strong>Pin number:</strong> 48</td><td><strong>Recommendation 1
+(if unused):</strong> Open</td><td><strong>Recommendation 2
+(if unused):</strong> –</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 63)</h3>
+            <img src="crop_table_p63_40.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table 18  Rules for different PCB types</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 63
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Two-layer PCB
+(no ground plane)</th><th></th><th> Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground</th></tr><tr><td><strong>Two-layer PCB
+(no ground plane):</strong> Two-layer PCB
+(no ground plane)</td><td><strong>col_1:</strong> </td><td><strong> Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground:</strong>  Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground</td></tr><tr><td><strong>Two-layer PCB
+(no ground plane):</strong> Two-layer PCB
+(solid ground plane)</td><td><strong>col_1:</strong> </td><td><strong> Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground:</strong>  Use a solid ground plane
+ Components of one zone should
+be supplied by only one supply
+from a central star point
+ Do not mix the supplies of
+different zones
+ Supply traces cannot have loops;
+use a tree structure instead</td></tr><tr><td><strong>Two-layer PCB
+(no ground plane):</strong> Multilayer
+configuration
+(4 layers)</td><td><strong>col_1:</strong> </td><td><strong> Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground:</strong>  Keep ground and power supply
+layers next to each other. This
+provides a good decoupling
+capacitor for free
+ Avoid slots in ground and power
+supply planes (for example, by
+routing signal traces within these
+planes, vias in a row, through-hole
+connectors)</td></tr><tr><td><strong>Two-layer PCB
+(no ground plane):</strong> Multilayer
+configuration
+(> 4 layers)</td><td><strong>col_1:</strong> </td><td><strong> Keep the loop areas that are
+formed by ground and power
+supply traces as small as possible
+ Route power supply traces always
+together (parallel, next to each
+other) starting from one central
+start point and spreading into
+each individual zone
+ Do not mix the supplies of
+different zones
+ Fill free areas with ground:</strong>  Route critical signals (for example,
+high-frequency signals,
+susceptible signals) in an inner
+signal layer that is embedded
+between two ground layers
+ Give each power supply domain
+(for example, 5 V, 3.3 V) a separate
+power and ground plane</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 64)</h3>
+            <img src="crop_table_p64_41.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 64)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 64
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>VSD</th><th></th></tr><tr><td><strong>VSD:</strong> VSD</td><td><strong>col_1:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 64)</h3>
+            <img src="crop_table_p64_42.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 64)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 64
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th></th><th></th><th></th></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> Logic</td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr><tr><td><strong>col_0:</strong> </td><td><strong>col_1:</strong> </td><td><strong>col_2:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 69)</h3>
+            <img src="crop_table_p69_43.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Table: Table (Page 69)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 90% |
+                <strong>Page:</strong> 69
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><th>Document
+revision</th><th>Date</th><th>Description of changes</th></tr><tr><td><strong>Document
+revision:</strong> Document
+revision</td><td><strong>Date:</strong> Date</td><td><strong>Description of changes:</strong> Description of changes</td></tr><tr><td><strong>Document
+revision:</strong> 1.1</td><td><strong>Date:</strong> 2022-04-01</td><td><strong>Description of changes:</strong> General:
+ Renamed “Embedded Power IC” to “MOTIXTM MCU”
+ Added “type: X7R” to the component selections
+ Editorial changes</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter “3 Clock generation unit (CGU)”
+ Added chapter “Ceramic resonator”</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter “9 Bridge driver”
+ Added “Source resistor at the SHx pin” as an external component</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter “10 Charge pump”
+ Updated “Charge pump application diagram”
+ Switched equations in chapter “Charge pump: how it works”
+ Changed voltage ripple time in chapter “Calculation example”</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter 11 “Current sense amplifiers”
+ Changed L = 1 µH to L = 1 nH
+sh sh</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter “14 Unused pins”
+ Updated table “Connection of unused pins”</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Chapter “15 Layout guidelines”
+ Renamed headings, moved chapter “Added considerations for an
+EMI-aware system/PBC design”
+ Removed chapter “Input filter”, figure “Ground concept and bypass
+capacitors, and chapter “Bypass capacitors”</td></tr><tr><td><strong>Document
+revision:</strong> </td><td><strong>Date:</strong> </td><td><strong>Description of changes:</strong> Added chapter “4 General purpose inputs outputs (GPIO)”
+Added chapter “7 Analog to digital converters (ADC1)”
+Added chapter “8 Sigma-delta analog digital converters (ADC3/4)”
+Added chapter “12 Sensor interfaces”</td></tr><tr><td><strong>Document
+revision:</strong> 1.0</td><td><strong>Date:</strong> 2020-10-30</td><td><strong>Description of changes:</strong> Initial creation</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 4)</h3>
+            <img src="crop_fig_p4_0.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 1 shows the block diagram of the TLE987x. The TLE986x differs from the TLE987x since it integrates two 
+bridge drivers, instead of three.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 4
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 1 shows the block diagram of the TLE987x. The TLE986x differs from the TLE987x since it integrates two 
+bridge drivers, instead of three.</td><td><strong>Nearby Context:</strong> 1.1 
+TLE987x/6x block diagram
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 4)</h3>
+            <img src="crop_fig_p4_1.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 1 
+Block diagram of the TLE987x</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 4
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 1 
+Block diagram of the TLE987x</td><td><strong>Nearby Context:</strong> 
+In the variants with the sigma-delta ADCs, the XTAL1 and XTAL2 pins for the external oscillator are not available.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_fig_p6_2.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 2 and Figure 3 show the TLE987x in an electric-drive application setup controlling a BLDC motor. This is a 
+very simplified example of an application circuit and bill of materials. The function must be verified in the 
+actual application. The TLE986x differs from the TLE987x since it has two bridge drivers, instead of three.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 2 and Figure 3 show the TLE987x in an electric-drive application setup controlling a BLDC motor. This is a 
+very simplified example of an application circuit and bill of materials. The function must be verified in the 
+actual application. The TLE986x differs from the TLE987x since it has two bridge drivers, instead of three.</td><td><strong>Nearby Context:</strong> 1.3 
+Application information
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 6)</h3>
+            <img src="crop_fig_p6_3.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 2 
+Application schematic example for TLE987x</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 6
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 2 
+Application schematic example for TLE987x</td><td><strong>Nearby Context:</strong> 
+EMC filter</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 7)</h3>
+            <img src="crop_fig_p7_4.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 3 
+Application schematic example for TLE987x-2QX</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 7
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 3 
+Application schematic example for TLE987x-2QX</td><td><strong>Nearby Context:</strong> 
+Table 3 
+External components (BOM)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 9)</h3>
+            <img src="crop_fig_p9_5.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 4 shows the structure of the PMU, where the power supply generation unit (PGU) includes the voltage 
+regulators for the pad supply (VDDP), the core supply (VDDC) and the voltage regulator to supply external 
+circuits (VDDEXT).</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 9
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 4 shows the structure of the PMU, where the power supply generation unit (PGU) includes the voltage 
+regulators for the pad supply (VDDP), the core supply (VDDC) and the voltage regulator to supply external 
+circuits (VDDEXT).</td><td><strong>Nearby Context:</strong> 2.1 
+Block diagram
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 9)</h3>
+            <img src="crop_fig_p9_6.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 4 
+Power supply generation block diagram</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 9
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 4 
+Power supply generation block diagram</td><td><strong>Nearby Context:</strong> 
+The submodules of the PMU are:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 10)</h3>
+            <img src="crop_fig_p10_7.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 5 
+Components before VS pin</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 10
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 5 
+Components before VS pin</td><td><strong>Nearby Context:</strong> 
+If data should be saved in the flash memory at power down, the selection of CVS2 should be done in order to 
+ensure that operations modifying the content of the flash are never interrupted (for examp</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 14)</h3>
+            <img src="crop_fig_p14_8.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 6 
+CGU block diagram</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 14
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 6 
+CGU block diagram</td><td><strong>Nearby Context:</strong> 
+The submodules of the CGU are:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 15)</h3>
+            <img src="crop_fig_p15_9.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 7 
+External Input Clock mode</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 15
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 7 
+External Input Clock mode</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 16)</h3>
+            <img src="crop_fig_p16_10.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 8 
+External Crystal mode</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 16
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 8 
+External Crystal mode</td><td><strong>Nearby Context:</strong> 
+The values and the corresponding operating ranges depend on the chosen crystal and have to be determined 
+and optimized in cooperation with the crystal vendor, using the negative resistance method, w</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 17)</h3>
+            <img src="crop_fig_p17_11.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 9 shows a layout example for an SMD quartz crystal to be used with the TLE987x/6x.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 17
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 9 shows a layout example for an SMD quartz crystal to be used with the TLE987x/6x.</td><td><strong>Nearby Context:</strong> 3.4 
+Layout recommendations
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 17)</h3>
+            <img src="crop_fig_p17_12.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 9 
+CGU layout recommendation</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 17
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 9 
+CGU layout recommendation</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 19)</h3>
+            <img src="crop_fig_p19_13.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 10 
+GPIO serial resistor</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 19
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 10 
+GPIO serial resistor</td><td><strong>Nearby Context:</strong> 
+VIO is the signal generated by the sending GPIO and VIO2 the signal seen by the receiving GPIO. Each GPIO has a 
+pin capacitance (P_5.1.19).</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 20)</h3>
+            <img src="crop_fig_p20_14.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The trace capacitance and inductance are calculated for a standard trace width of 0.2 mm and thickness of 
+0.04 mm and a PCB layer thickness of 1.6 mm. VIO is 5 V and rises and falls within 1 ns. VIO and VIO2 are plotted for 
+different trace lengths and serial resistor dimensions in Figure 11.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 20
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The trace capacitance and inductance are calculated for a standard trace width of 0.2 mm and thickness of 
+0.04 mm and a PCB layer thickness of 1.6 mm. VIO is 5 V and rises and falls within 1 ns. VIO and VIO2 are plotted for 
+different trace lengths and serial resistor dimensions in Figure 11.</td><td><strong>Nearby Context:</strong> 𝑊
++
+𝑊
+4 × 𝐻) × 𝐿 [𝑛𝐻]
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 20)</h3>
+            <img src="crop_fig_p20_15.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 11 
+GPIO ringing</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 20
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 11 
+GPIO ringing</td><td><strong>Nearby Context:</strong> 
+For traces with a length of 100 mm, a 90 Ω resistor suppresses ringing efficiently. If production spread and 
+temperature dependency are considered, 220 Ω are sufficient for most applications.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 21)</h3>
+            <img src="crop_fig_p21_16.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 12 
+LIN transceiver block diagram</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 21
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 12 
+LIN transceiver block diagram</td><td><strong>Nearby Context:</strong> Transmitter
+It is recommended to put a 220 pF capacitor between the LIN and the GND_LIN pins. This complies with the 
+LIN specification 2.2. The GND_LIN pin has to be connected to a global ground net </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 22)</h3>
+            <img src="crop_fig_p22_17.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 13 
+Monitor input block diagram</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 22
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 13 
+Monitor input block diagram</td><td><strong>Nearby Context:</strong> 
+6.2 
+Application hints</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 23)</h3>
+            <img src="crop_fig_p23_18.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The external components used for VDH and the CSA are already described in chapter 9 and 11. For the 
+remaining low-voltage inputs, an external anti-aliasing low-pass filter can be used. This filter limits the ADC 
+channel input frequency to half the sampling frequency to fulfill the Nyquist criterion to prevent aliasing of the 
+input signal. Figure 14 shows the block diagram of ADC1 and the external filter components.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 23
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The external components used for VDH and the CSA are already described in chapter 9 and 11. For the 
+remaining low-voltage inputs, an external anti-aliasing low-pass filter can be used. This filter limits the ADC 
+channel input frequency to half the sampling frequency to fulfill the Nyquist criterion to prevent aliasing of the 
+input signal. Figure 14 shows the block diagram of ADC1 and the external filter components.</td><td><strong>Nearby Context:</strong> 7.4 
+ADC1 external components design
+The ADC consists of a multiplexer to switch the channel that should be measured during the actual sequence 
+onto the ADC module. The ADC module consists of the res</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 24)</h3>
+            <img src="crop_fig_p24_19.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 14 
+ADC1 block diagram and external components</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 24
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 14 
+ADC1 block diagram and external components</td><td><strong>Nearby Context:</strong> 
+7.4.1 
+Anti-aliasing filter design</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 26)</h3>
+            <img src="crop_fig_p26_20.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 15 
+SDADC sensor interface</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 26
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 15 
+SDADC sensor interface</td><td><strong>Nearby Context:</strong> </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 29)</h3>
+            <img src="crop_fig_p29_21.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 16 
+Gate drivers for one half-bridge with external components</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 29
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 16 
+Gate drivers for one half-bridge with external components</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 33)</h3>
+            <img src="crop_fig_p33_22.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 17 
+Charge pump application diagram</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 33
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 17 
+Charge pump application diagram</td><td><strong>Nearby Context:</strong> 
+10.2 
+Charge pump: how it works</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 34)</h3>
+            <img src="crop_fig_p34_23.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The switches of the charge pump are driven by an internal clock (CLK) with a frequency equal to fSW, derived 
+from the TLE987x/6x system clock. The following pattern applies (Figure 18):</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 34
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The switches of the charge pump are driven by an internal clock (CLK) with a frequency equal to fSW, derived 
+from the TLE987x/6x system clock. The following pattern applies (Figure 18):</td><td><strong>Nearby Context:</strong> TLE987x/6x 
+Hardware design guideline 
+Charge pump
+ Clock set to low: the capacitor CCPS1 is charged by VSD, while the energy of CCPS2 is transferred to the</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 34)</h3>
+            <img src="crop_fig_p34_24.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 18 
+Basic scheme of the charge pump (left: clock set to low; right: clock set to high)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 34
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 18 
+Basic scheme of the charge pump (left: clock set to low; right: clock set to high)</td><td><strong>Nearby Context:</strong> 
+Including now the load current in the calculation, the output voltage VCP can be expressed as:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 35)</h3>
+            <img src="crop_fig_p35_25.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 19 shows the equivalent circuit as expressed by the Equation 4.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 35
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 19 shows the equivalent circuit as expressed by the Equation 4.</td><td><strong>Nearby Context:</strong> current. A value of REQ fitting to the charge pump implemented in the TLE987x is about 100 Ω.
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 35)</h3>
+            <img src="crop_fig_p35_26.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 19 
+Charge pump equivalent circuit</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 35
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 19 
+Charge pump equivalent circuit</td><td><strong>Nearby Context:</strong> 
+Considering the wide range of the input voltage VSD, the charge pump of the TLE987x limits the output voltage 
+VCP according to the following relations:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 36)</h3>
+            <img src="crop_fig_p36_27.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The load current ICP of the charge pump is the sum of the currents supplied to each gate, and the bias current 
+of the bridge driver. In Figure 20 the gate charge and discharge current paths are shown. Referring to this figure, 
+the following equations can be derived:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 36
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The load current ICP of the charge pump is the sum of the currents supplied to each gate, and the bias current 
+of the bridge driver. In Figure 20 the gate charge and discharge current paths are shown. Referring to this figure, 
+the following equations can be derived:</td><td><strong>Nearby Context:</strong> 10.2.1 
+ICP load current calculation
+Equation 5:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 37)</h3>
+            <img src="crop_fig_p37_28.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 20 
+Schematic representation of the high-side and low-side MOSFET gate charge (green) and 
+discharge (blue) currents paths (left). Bias current in red. Each gate driver block is 
+repeated 3× in the TLE987x, while 2× in TLE986x</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 37
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 20 
+Schematic representation of the high-side and low-side MOSFET gate charge (green) and 
+discharge (blue) currents paths (left). Bias current in red. Each gate driver block is 
+repeated 3× in the TLE987x, while 2× in TLE986x</td><td><strong>Nearby Context:</strong> 
+The gate charge QMOSFET can be determined from the characteristics of the MOSFET. A typical gate charge graph 
+of an automotive Infineon MOSFET (IAUA120N04S5N014) is shown in the Figure 21.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 37)</h3>
+            <img src="crop_fig_p37_29.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The gate charge QMOSFET can be determined from the characteristics of the MOSFET. A typical gate charge graph 
+of an automotive Infineon MOSFET (IAUA120N04S5N014) is shown in the Figure 21.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 37
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The gate charge QMOSFET can be determined from the characteristics of the MOSFET. A typical gate charge graph 
+of an automotive Infineon MOSFET (IAUA120N04S5N014) is shown in the Figure 21.</td><td><strong>Nearby Context:</strong> Figure 20 
+Schematic representation of the high-side and low-side MOSFET gate charge (green) and 
+discharge (blue) currents paths (left). Bias current in red. Each gate driver block is 
+repeated 3× in</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 38)</h3>
+            <img src="crop_fig_p38_30.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 21 
+Gate charge of the IAUA120N04S5N014</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 38
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 21 
+Gate charge of the IAUA120N04S5N014</td><td><strong>Nearby Context:</strong> 
+In the bridge driver implementation of the TLE987x/6x, the HS and LS gate source voltages VGS are limited by 
+an internal clamping. In Figure 22 a simplified schematic of the bridge driver is illustr</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 38)</h3>
+            <img src="crop_fig_p38_31.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: In the bridge driver implementation of the TLE987x/6x, the HS and LS gate source voltages VGS are limited by 
+an internal clamping. In Figure 22 a simplified schematic of the bridge driver is illustrated. It can be assumed 
+that the MOSFETs ON-resistances and the current sensing resistor Rsh are in the order of magnitude of [mΩ]. As 
+a consequence the following approximations can be made:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 38
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> In the bridge driver implementation of the TLE987x/6x, the HS and LS gate source voltages VGS are limited by 
+an internal clamping. In Figure 22 a simplified schematic of the bridge driver is illustrated. It can be assumed 
+that the MOSFETs ON-resistances and the current sensing resistor Rsh are in the order of magnitude of [mΩ]. As 
+a consequence the following approximations can be made:</td><td><strong>Nearby Context:</strong> Figure 21 
+Gate charge of the IAUA120N04S5N014
+ When HSx is ON and LSx is OFF → VPHx ≅ VSD</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 39)</h3>
+            <img src="crop_fig_p39_32.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 22 
+Simplified BDRV block diagram with highlight on gate-source voltage clamping. Each gate 
+driver block is repeated 3× in the TLE987x, while 2× in the TLE986x</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 39
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 22 
+Simplified BDRV block diagram with highlight on gate-source voltage clamping. Each gate 
+driver block is repeated 3× in the TLE987x, while 2× in the TLE986x</td><td><strong>Nearby Context:</strong> 
+A calculation example is provided here below, where no capacitors are connected to the MOSFETs gates and 
+FOC control with a 3-phase motor is used. For sake of simplicity, we can assume VGS to have t</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 43)</h3>
+            <img src="crop_fig_p43_33.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 23 
+CSA block diagram and application schematic for shunt current measurement</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 43
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 23 
+CSA block diagram and application schematic for shunt current measurement</td><td><strong>Nearby Context:</strong> 
+11.2 
+Functional description</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 43)</h3>
+            <img src="crop_fig_p43_34.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 23 shows the block diagram of the CSA together with the registers and logic related to its setup. 
+The amplifier is built around an OPA configured as a differential amplifier with an output voltage offset. 
+The amplifier’s output is permanently connected to the ADC1 channel 1, which means it is loaded by a fixed 
+impedance. It is an integrated closed-loop amplifier and it can be used only as such. What follows will describe 
+the entire CSA configuration and behavior.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 43
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 23 shows the block diagram of the CSA together with the registers and logic related to its setup. 
+The amplifier is built around an OPA configured as a differential amplifier with an output voltage offset. 
+The amplifier’s output is permanently connected to the ADC1 channel 1, which means it is loaded by a fixed 
+impedance. It is an integrated closed-loop amplifier and it can be used only as such. What follows will describe 
+the entire CSA configuration and behavior.</td><td><strong>Nearby Context:</strong> 11.2 
+Functional description
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 45)</h3>
+            <img src="crop_fig_p45_35.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 24 shows a graphical representation of the differential DC characteristics and the input/output range.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 45
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 24 shows a graphical representation of the differential DC characteristics and the input/output range.</td><td><strong>Nearby Context:</strong> TLE987x/6x 
+Hardware design guideline 
+Current sense amplifier
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 45)</h3>
+            <img src="crop_fig_p45_36.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 24 
+Differential DC characteristics</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 45
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 24 
+Differential DC characteristics</td><td><strong>Nearby Context:</strong> 
+11.3.1 
+AC characteristics</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 45)</h3>
+            <img src="crop_fig_p45_37.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The CSA can be modeled as a three-port network with two input ports and one output port, as shown in  
+Figure 25. The two input ports represent OP2 and OP1, while the output port represents VOUT. Voltages for all 
+three ports are referred to the ground potential GND.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 45
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The CSA can be modeled as a three-port network with two input ports and one output port, as shown in  
+Figure 25. The two input ports represent OP2 and OP1, while the output port represents VOUT. Voltages for all 
+three ports are referred to the ground potential GND.</td><td><strong>Nearby Context:</strong> 11.3.1 
+AC characteristics
+By considering the specific characteristics of the CSA, the three-port network can be expressed as:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 46)</h3>
+            <img src="crop_fig_p46_38.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 25 
+CSA AC simplified three-port model</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 46
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 25 
+CSA AC simplified three-port model</td><td><strong>Nearby Context:</strong> vo
+Figure 25 shows a schematic representation of the input equations and its impedances. This representation 
+together with the equations are necessary to design the external current-sensing and filte</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 46)</h3>
+            <img src="crop_fig_p46_39.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 25 shows a schematic representation of the input equations and its impedances. This representation 
+together with the equations are necessary to design the external current-sensing and filtering network.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 46
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 25 shows a schematic representation of the input equations and its impedances. This representation 
+together with the equations are necessary to design the external current-sensing and filtering network.</td><td><strong>Nearby Context:</strong> Figure 25 
+CSA AC simplified three-port model
+The resistors R have nominal values of 1.25 kΩ (see P_13.1.25 of the datasheet) and G changes according the 
+programmed gain.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 46)</h3>
+            <img src="crop_fig_p46_40.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The typical AC differential gain transfer function is shown in Figure 26 and defined as:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 46
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The typical AC differential gain transfer function is shown in Figure 26 and defined as:</td><td><strong>Nearby Context:</strong> 𝐴𝑐𝑚=
+𝐴𝑑
+𝐶𝑀𝑅𝑅
+𝐴𝑑(𝑠) = 𝑣𝑜(𝑠)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 47)</h3>
+            <img src="crop_fig_p47_41.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 26 
+AC differential gain transfer function</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 47
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 26 
+AC differential gain transfer function</td><td><strong>Nearby Context:</strong> 
+The typical values of ωp for each gain setting are shown in Table 16. Being a 4th-order transfer function, its step 
+response in the time domain has a fairly complex analytical expression. However, t</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 47)</h3>
+            <img src="crop_fig_p47_42.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The CSA is designed to measure the differential voltage across a shunt resistor through which the current to be 
+measured flows. A typical circuit implementation of the sensing network is shown in Figure 27.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 47
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The CSA is designed to measure the differential voltage across a shunt resistor through which the current to be 
+measured flows. A typical circuit implementation of the sensing network is shown in Figure 27.</td><td><strong>Nearby Context:</strong> 11.4 
+Application hints
+Because of the parasitic inductance introduced by the shunt resistor and the PCB traces, the signal across the 
+shunt resistor presents spikes and ringings. This effect must be</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 47)</h3>
+            <img src="crop_fig_p47_43.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Because of the parasitic inductance introduced by the shunt resistor and the PCB traces, the signal across the 
+shunt resistor presents spikes and ringings. This effect must be compensated by a filtering network as shown 
+in Figure 27.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 47
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Because of the parasitic inductance introduced by the shunt resistor and the PCB traces, the signal across the 
+shunt resistor presents spikes and ringings. This effect must be compensated by a filtering network as shown 
+in Figure 27.</td><td><strong>Nearby Context:</strong> The CSA is designed to measure the differential voltage across a shunt resistor through which the current to be 
+measured flows. A typical circuit implementation of the sensing network is shown in Fig</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 48)</h3>
+            <img src="crop_fig_p48_44.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 27 
+Typical circuit implementation</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 48
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 27 
+Typical circuit implementation</td><td><strong>Nearby Context:</strong> 
+11.4.1 
+ Shunt resistor selection</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 49)</h3>
+            <img src="crop_fig_p49_45.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: 1. The higher the gain, the lower the bandwidth, as seen in Figure 26</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 49
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> 1. The higher the gain, the lower the bandwidth, as seen in Figure 26</td><td><strong>Nearby Context:</strong> The following considerations are also relevant when selecting a shunt resistor:
+2. The values of commercial current sensing resistors are discrete and limited</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 49)</h3>
+            <img src="crop_fig_p49_46.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 28 shows a graphical representation of the design equations above. It shows that any gain setting can fit 
+the case, given that Rsh falls in the selection area.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 49
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 28 shows a graphical representation of the design equations above. It shows that any gain setting can fit 
+the case, given that Rsh falls in the selection area.</td><td><strong>Nearby Context:</strong> 80 𝐴2 = 12.5 𝑚Ω
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 50)</h3>
+            <img src="crop_fig_p50_47.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 28 
+Graphical representation of the design example values</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 50
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 28 
+Graphical representation of the design example values</td><td><strong>Nearby Context:</strong> 
+11.4.2 
+Filter network selection</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 50)</h3>
+            <img src="crop_fig_p50_48.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: In the frequency domain, the goal mentioned above translates into obtaining a response as flat as possible, 
+ideally a constant response across the whole frequency spectrum. As known, Ad(s) has a flat gain, but within 
+limited bandwidth (see Figure 26 and Table 16), so the effect of the shunt and filter network has to preserve this 
+level of fidelity.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 50
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> In the frequency domain, the goal mentioned above translates into obtaining a response as flat as possible, 
+ideally a constant response across the whole frequency spectrum. As known, Ad(s) has a flat gain, but within 
+limited bandwidth (see Figure 26 and Table 16), so the effect of the shunt and filter network has to preserve this 
+level of fidelity.</td><td><strong>Nearby Context:</strong> Note: 
+The above simplification is possible because both common mode input signal and gain are 
+negligible compared to the differential ones.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 51)</h3>
+            <img src="crop_fig_p51_49.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 29 
+CSA input filter and graphical representation of the CSA impedances</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 51
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 29 
+CSA input filter and graphical representation of the CSA impedances</td><td><strong>Nearby Context:</strong> 
+In conclusion, the best dynamic performances obtainable (without introducing any additional reactive device) 
+is the one of the CSA. This requires:</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 51)</h3>
+            <img src="crop_fig_p51_50.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The analytical calculation of ZT(s) from the schematic in Figure 29 leads to:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 51
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The analytical calculation of ZT(s) from the schematic in Figure 29 leads to:</td><td><strong>Nearby Context:</strong> This will be eventually the condition for calculating one of the design equations.
+𝑍𝑇(𝑠) = 𝑣𝑖𝑑(𝑠)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 52)</h3>
+            <img src="crop_fig_p52_51.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: In Figure 30 the effect of four different CLP values on the normalized transfer functions and step responses can be 
+observed:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 52
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> In Figure 30 the effect of four different CLP values on the normalized transfer functions and step responses can be 
+observed:</td><td><strong>Nearby Context:</strong> This design equation has to be considered as a starting point recommendation for the customer’s design. The 
+designer shall make use of the analytical tools shown in this chapter to choose the CLP val</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 53)</h3>
+            <img src="crop_fig_p53_52.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The speed of the signal is mainly affected by the CSA bandwidth. As shown in Table 16, the typical settling time 
+depends on the gain setting G. Figure 30 shows that the CSA bandwidth is capable to settle within 800 ns typically 
+for the highest gain (lowest bandwidth) setup. In a motor control with 20 kHz PWM, 800 ns represents a duty cycle 
+of 1.6%. So for applications where very high precision and fast response is needed by the current sensing, it is 
+suggested to setup the CSA (and design the passives) for the lowest gain possible.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 53
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The speed of the signal is mainly affected by the CSA bandwidth. As shown in Table 16, the typical settling time 
+depends on the gain setting G. Figure 30 shows that the CSA bandwidth is capable to settle within 800 ns typically 
+for the highest gain (lowest bandwidth) setup. In a motor control with 20 kHz PWM, 800 ns represents a duty cycle 
+of 1.6%. So for applications where very high precision and fast response is needed by the current sensing, it is 
+suggested to setup the CSA (and design the passives) for the lowest gain possible.</td><td><strong>Nearby Context:</strong>  The 2nd-second order dynamics introduced by the sensing resistor parasitic inductance Lsh is tamed</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 54)</h3>
+            <img src="crop_fig_p54_53.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 30 
+Frequency and step response of the transfer functions ZT(s) and H(s) with different values</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 54
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 30 
+Frequency and step response of the transfer functions ZT(s) and H(s) with different values</td><td><strong>Nearby Context:</strong> 
+of CLP and the following values: Lsh=1 nH, Rsh=5 mΩ, RLP=10 Ω, G = 60.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 55)</h3>
+            <img src="crop_fig_p55_54.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Using different ports and their alternate select functions, multiple interfaces can be implemented including 
+TMR sensor (TLE987x-2QX only), Hall sensor, SPI, and UART. Figure 31 and Figure 32 each show two possible 
+configurations depending on the application requirement. External components which might be needed for 
+some of the interfaces have not been included, as they depend on the sensors which are used. In case some 
+interface is not needed, the relevant ports can be used as per application requirement.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 55
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Using different ports and their alternate select functions, multiple interfaces can be implemented including 
+TMR sensor (TLE987x-2QX only), Hall sensor, SPI, and UART. Figure 31 and Figure 32 each show two possible 
+configurations depending on the application requirement. External components which might be needed for 
+some of the interfaces have not been included, as they depend on the sensors which are used. In case some 
+interface is not needed, the relevant ports can be used as per application requirement.</td><td><strong>Nearby Context:</strong> 12.1 
+Implementing different interface connections to TLE987x/6x
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 55)</h3>
+            <img src="crop_fig_p55_55.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 31 
+Example interfaces for TLE987x/6x</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 55
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 31 
+Example interfaces for TLE987x/6x</td><td><strong>Nearby Context:</strong> 
+TLE987x/6x</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 56)</h3>
+            <img src="crop_fig_p56_56.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 32 
+Example interfaces for TLE987x-2QX</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 56
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 32 
+Example interfaces for TLE987x-2QX</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 57)</h3>
+            <img src="crop_fig_p57_57.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: The SWD interface can be directly connected to chips of the TLE987x/6x family. Figure 33 shows the 
+interconnections between the device and SWD connector.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 57
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> The SWD interface can be directly connected to chips of the TLE987x/6x family. Figure 33 shows the 
+interconnections between the device and SWD connector.</td><td><strong>Nearby Context:</strong> 13.2 
+Implementing an SWD interface connection to TLE987x/6x
+External pull-up or pull-down resistors are not needed because internal pull-down resistors are present.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 57)</h3>
+            <img src="crop_fig_p57_58.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 33 
+SWD connection to the TLE987x/6x device</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 57
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 33 
+SWD connection to the TLE987x/6x device</td><td><strong>Nearby Context:</strong> 
+On the SWD interface of the TLE9879 EvalKit and TLE9869 EvalKit, pin 9 is used to deactivate the onboard 
+debugging circuit. In a typical implementation, this pin is used as GND. The pinout is shown </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 57)</h3>
+            <img src="crop_fig_p57_59.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: On the SWD interface of the TLE9879 EvalKit and TLE9869 EvalKit, pin 9 is used to deactivate the onboard 
+debugging circuit. In a typical implementation, this pin is used as GND. The pinout is shown in Figure 34.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 57
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> On the SWD interface of the TLE9879 EvalKit and TLE9869 EvalKit, pin 9 is used to deactivate the onboard 
+debugging circuit. In a typical implementation, this pin is used as GND. The pinout is shown in Figure 34.</td><td><strong>Nearby Context:</strong> Figure 33 
+SWD connection to the TLE987x/6x device</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 58)</h3>
+            <img src="crop_fig_p58_60.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 34 
+SWD interface implementation for an application</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 58
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 34 
+SWD interface implementation for an application</td><td><strong>Nearby Context:</strong> 
+Schematic
+Layout</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 61)</h3>
+            <img src="crop_fig_p61_61.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 35 
+Placement of the connectors</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 61
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 35 
+Placement of the connectors</td><td><strong>Nearby Context:</strong> 
+15.1.2 
+Floor-planning the PCB</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 62)</h3>
+            <img src="crop_fig_p62_62.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 36 
+Routing the power supply traces</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 62
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 36 
+Routing the power supply traces</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 64)</h3>
+            <img src="crop_fig_p64_63.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Ground planes should be placed to separate the power MOSFETs’ switching currents and the IC operating 
+currents as much as possible. Figure 37 shows these currents and the symbols used for their return paths.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 64
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Ground planes should be placed to separate the power MOSFETs’ switching currents and the IC operating 
+currents as much as possible. Figure 37 shows these currents and the symbols used for their return paths.</td><td><strong>Nearby Context:</strong> 15.2.1 
+GND concept
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 64)</h3>
+            <img src="crop_fig_p64_64.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 37 
+GND concept and main current paths</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 64
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 37 
+GND concept and main current paths</td><td><strong>Nearby Context:</strong> 
+Rsh</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 65)</h3>
+            <img src="crop_fig_p65_65.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: A practical example is shown in Figure 38. The connection between the PWR GND (mid-top) and IC GND (mid-
+bottom) planes consists of a slim trace and a via. This connection ensures the IC's current supply, while 
+rejecting high-frequency currents that could loop from the IC to the battery. Consider these guidelines for the 
+GND pin routing:</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 65
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> A practical example is shown in Figure 38. The connection between the PWR GND (mid-top) and IC GND (mid-
+bottom) planes consists of a slim trace and a via. This connection ensures the IC's current supply, while 
+rejecting high-frequency currents that could loop from the IC to the battery. Consider these guidelines for the 
+GND pin routing:</td><td><strong>Nearby Context:</strong>  High-frequency current interactions with the battery ground terminal will be limited
+ Pin 39 should have the most solid connection to the IC GND plane. In the layout example this is</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 65)</h3>
+            <img src="crop_fig_p65_66.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: A typical conducted EMI spectrum of an application that follows these rules is shown in Figure 39. This 
+measurement has been performed on the layout example with the motor-running functions turned off to 
+highlight the spectral contribution of the AC currents generated by the IC.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 65
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> A typical conducted EMI spectrum of an application that follows these rules is shown in Figure 39. This 
+measurement has been performed on the layout example with the motor-running functions turned off to 
+highlight the spectral contribution of the AC currents generated by the IC.</td><td><strong>Nearby Context:</strong> To minimize the stray inductance, the loop “input cap – bridge MOSFET – shunt resistor” should be as small as 
+possible
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 65)</h3>
+            <img src="crop_fig_p65_67.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 38 
+Example PCB layers</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 65
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 38 
+Example PCB layers</td><td><strong>Nearby Context:</strong> 
+VD DP</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 66)</h3>
+            <img src="crop_fig_p66_68.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 39 
+Conducted EMI measurement spectrum related to the layout example</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 66
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 39 
+Conducted EMI measurement spectrum related to the layout example</td><td><strong>Nearby Context:</strong> 
+15.2.2 
+Layout recommendation for 3-phase motor bridge</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 66)</h3>
+            <img src="crop_fig_p66_69.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 40 shows the commutation circuit of one bridge leg. This bridge leg can be a part of a 2-phase or 
+3-phase bridge.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 66
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 40 shows the commutation circuit of one bridge leg. This bridge leg can be a part of a 2-phase or 
+3-phase bridge.</td><td><strong>Nearby Context:</strong> 15.2.2 
+Layout recommendation for 3-phase motor bridge
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 66)</h3>
+            <img src="crop_fig_p66_70.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 40 
+Layout – one bridge leg with two N-MOSFETs (as part of a 2-phase or 3-phase motor bridge)</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 66
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 40 
+Layout – one bridge leg with two N-MOSFETs (as part of a 2-phase or 3-phase motor bridge)</td><td><strong>Nearby Context:</strong> 
+During a transition from the low-side to the high-side, the current is commutating from LS switch to HS switch. 
+The ideal commutation circuit is a loop consisting of CDC, THS and TLS. The inductive </td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 67)</h3>
+            <img src="crop_fig_p67_71.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 40 shows an example for a low-impedance layout of one motor bridge leg.  
+The capacitors C2, CS-H and CS-L are placed as close as possible to the device pins. 
+Figure 41 shows a recommendation for the commutation circuit of a 3-phase motor bridge.</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 67
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 40 shows an example for a low-impedance layout of one motor bridge leg.  
+The capacitors C2, CS-H and CS-L are placed as close as possible to the device pins. 
+Figure 41 shows a recommendation for the commutation circuit of a 3-phase motor bridge.</td><td><strong>Nearby Context:</strong> TLE987x/6x 
+Hardware design guideline 
+Layout guidelines
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 67)</h3>
+            <img src="crop_fig_p67_72.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 41 
+Layout recommendation – 3-phase motor bridge</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 67
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 41 
+Layout recommendation – 3-phase motor bridge</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-left">
+            <h3>Original PDF Crop (Page 68)</h3>
+            <img src="crop_fig_p68_73.png" alt="PDF Crop" />
+        </div>
+        <div class="card-right">
+            <h3>Figure: Figure 42 
+Layout recommendation – current sense shunt 
+No magnetic current sensing, pseudo-four-wire technique</h3>
+            <p>
+                <span class="badge badge-pass">VALIDATED</span>
+                <strong>Confidence:</strong> 100% |
+                <strong>Page:</strong> 68
+            </p>
+            <h4>Parsed Structured Content:</h4>
+            <table class="parsed-table">
+<tr><td><strong>Caption:</strong> Figure 42 
+Layout recommendation – current sense shunt 
+No magnetic current sensing, pseudo-four-wire technique</td><td><strong>Nearby Context:</strong> 
+</td></tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
